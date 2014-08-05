@@ -6,26 +6,20 @@
 
 namespace niven
 {
-		//TODO: Move to own header
-	struct SegmentMatch
-	{
-		bool match = false;
-		ent::tree parameters;	// or map<string, string>??
-
-		SegmentMatch(bool match) : match(match) {}
-		SegmentMatch(bool match, const ent::tree &parameters) : match(match), parameters(parameters) {}
-	};
+	typedef std::pair<bool, std::map<std::string, std::string>> SegmentMatch;
 
 
 	class TrieNode
 	{
 		public:
 
+
+
 			TrieNode(std::string segment, int score) : score(score), routeSegment(segment) {}
 
 			void Add(std::shared_ptr<Route> route, int index = 0, int score = 0);
 
-			std::vector<RouteMatch> GetMatches(const std::vector<std::string> &segments, int index = 0, ent::tree parameters = ent::tree());
+			void GetMatches(std::vector<RouteMatch> &results, const std::vector<std::string> &segments, int index = 0, const std::map<std::string, std::string> &parameters = {});//, ent::tree parameters = ent::tree());
 
 		protected:
 

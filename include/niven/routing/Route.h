@@ -9,23 +9,7 @@
 
 namespace niven
 {
-	typedef std::function<Response(Context)> Action;
-
-
-	/*class RouteDescription
-	{
-		public:
-
-			RouteDescription(std::string method, std::string path) : name(name), method(method), path(path) {}
-
-		protected:
-
-			std::string method;
-			std::string path;
-
-			std::vector<std::string> segments;
-	};*/
-
+	typedef std::function<Response(Context&)> Action;
 
 
 	class Route
@@ -47,15 +31,12 @@ namespace niven
 			std::string path;
 			std::vector<std::string> segments;	// Created from the full path
 			int score;							// Assigned when building the trie
-			//RouteDescription description;
-			//
-
 	};
 
 
 	struct RouteMatch
 	{
 		std::shared_ptr<Route> route;
-		ent::tree parameters;	// or map<string, string>??
+		std::map<std::string, std::string> parameters;
 	};
 }

@@ -18,8 +18,6 @@ namespace niven
 
 			NivenModule(std::string path = "") :  path(path) {}
 
-			//std::vector<Route> &Routes() { return this->routes; }
-
 		protected:
 
 			class RouteBuilder
@@ -28,24 +26,11 @@ namespace niven
 
 					RouteBuilder(NivenModule *parent, std::string method) : method(method), parent(parent) {}
 
-					Route &operator[](const std::string path)
-					{
-						auto route = std::make_shared<Route>(this->method, this->GetPath(path));
-
-						this->parent->routes.push_back(route);
-
-						return *route;
-					}
+					Route &operator[](const std::string path);
 
 				private:
 
-					std::string GetPath(std::string path)
-					{
-						auto relative	= emg::trim(path, '/');
-						auto parent		= emg::trim(this->parent->path, '/');
-
-						return "/" + (parent.empty() ? relative : relative.empty() ? parent : parent + "/" + relative);
-					}
+					std::string GetPath(std::string path);
 
 					std::string method;
 					NivenModule *parent;

@@ -8,11 +8,12 @@ namespace niven
 	class RootNode : public TrieNode
 	{
 		public:
+
 			RootNode() : TrieNode("", 0) {}
 
 			SegmentMatch Match(std::string segment)
 			{
-				return { true };
+				return { true, {} };
 			}
 	};
 }

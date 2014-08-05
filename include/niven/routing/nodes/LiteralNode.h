@@ -12,7 +12,7 @@ namespace niven
 
 			SegmentMatch Match(std::string segment)
 			{
-				return {  segment == this->routeSegment };
+				return {  segment == this->routeSegment, {} };
 			}
 	};
 }

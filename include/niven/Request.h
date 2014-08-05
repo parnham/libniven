@@ -4,13 +4,10 @@
 #include <string>
 #include <microhttpd.h>
 
-//Debug
-#include <entity/entity.h>
-
 
 namespace niven
 {
-	struct Request : ent::entity
+	struct Request
 	{
 		std::string url;
 		std::string method;
@@ -24,10 +21,6 @@ namespace niven
 		Request() {}
 		Request(std::string url, std::string method, MHD_Connection *connection);
 
-
-		ent::mapping map()
-		{
-			return ent::mapping() << eref(url) << eref(method) << eref(query) << eref(headers) << eref(cookies);
-		}
+		//void Set(std::string url, std::string method, MHD_Connection *connection);
 	};
 }

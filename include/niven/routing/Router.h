@@ -17,8 +17,6 @@ namespace niven
 
 		private:
 
-			std::vector<RouteMatch> GetMatches(std::string method, std::string path);
-
 			std::map<std::string, RootNode> trie;
 	};
 

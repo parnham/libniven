@@ -55,21 +55,23 @@ class SampleModule : public NivenModule
 
 		SampleModule() : NivenModule("/sample")
 		{
-			Get["/"]			= [](Context c) { return "The moon's a balloon"; };
-			Get["/test"]		= [](Context c) { return Test(); };
-			Get["/resource"]	= [](Context c) { return c.Resolve<IResource>()->Get(); };
-			Get["/ok"]			= [](Context c) { return Http::OK; };
-			Get["/test/{id}"]	= [](Context c) { return json::to(c.parameters, true); };
+			//Before += [](Context &c)
+			//After +=	[](Context &c, Response &r)?? or response inside context?
+
+			Get["/"]			= [](Context &c) { return "The moon's a balloon"; };
+			Get["/test"]		= [](Context &c) { return Test(); };
+			Get["/resource"]	= [](Context &c) { return c.Resolve<IResource>()->Get(); };
+			Get["/ok"]			= [](Context &c) { return Http::OK; };
+			Get["/custom"]		= [](Context &c) { return Response().WithHeader("something", "else"); };
+			Get["/test/{id}"]	= [](Context &c) { return "ID=" + c["id"]; };
 			Get["/broken"]		= nullptr;
 
-			Get["/test/{id}/{name}"]	= [](Context c) { return json::to(c.parameters, true); };
-			Get["/test/{id}/literal"]	= [](Context c) { return json::to(c.parameters, true); };
+			Get["/test/{id}/{name}"]	= [](Context &c) { return "ID=" + c["id"] + "  Name=" + c["name"]; };
+			Get["/test/{id}/literal"]	= [](Context &c) { return "ID=" + c["id"]; };
 
-			Post["/bind"] = [](Context c) { return "The name is: " + c.bind<Test>().name; };
+			Post["/bind"] = [](Context &c) { return "The name is: " + c.bind<Test>().name; };
 		}
 };
-
-
 
 REGISTER_MODULE(SampleModule)
 

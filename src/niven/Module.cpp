@@ -3,5 +3,21 @@
 
 namespace niven
 {
+	Route &NivenModule::RouteBuilder::operator[](const std::string path)
+	{
+		auto route = std::make_shared<Route>(this->method, this->GetPath(path));
 
+		this->parent->routes.push_back(route);
+
+		return *route;
+	}
+
+
+	std::string NivenModule::RouteBuilder::GetPath(std::string path)
+	{
+		auto relative	= emg::trim(path, '/');
+		auto parent		= emg::trim(this->parent->path, '/');
+
+		return "/" + (parent.empty() ? relative : relative.empty() ? parent : parent + "/" + relative);
+	}
 }

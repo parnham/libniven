@@ -1,10 +1,11 @@
 #include "niven/routing/nodes/TrieNode.h"
 #include "niven/routing/nodes/LiteralNode.h"
 #include "niven/routing/nodes/CaptureNode.h"
+#include <emergent/Logger.h>
 #include <algorithm>
 
 using namespace std;
-
+using namespace emg;
 
 namespace niven
 {
@@ -16,7 +17,7 @@ namespace niven
 			route->score = score + this->score;
 			this->routes.push_back(route);
 
-			cout << "Added " << route->path << " at " << index << " with a score of " << route->score << endl;
+			FLOG(info, "Added %s at %d with a score of %d", route->path, index, route->score);
 		}
 		else
 		{
@@ -28,13 +29,11 @@ namespace niven
 	}
 
 
-	vector<RouteMatch> TrieNode::GetMatches(const vector<string> &segments, int index, ent::tree parameters)
+	void TrieNode::GetMatches(vector<RouteMatch> &results, const vector<string> &segments, int index, const std::map<std::string, std::string> &parameters)
 	{
-		vector<RouteMatch> result;
-
 		if (index >= segments.size())
 		{
-			for (auto &r : this->routes) result.push_back({ r, parameters });
+			for (auto &r : this->routes) results.push_back({ r, parameters });
 		}
 		else
 		{
@@ -42,19 +41,13 @@ namespace niven
 			{
 				auto match = c.second->Match(segments[index]);
 
-				if (match.match)
+				if (match.first)
 				{
-					match.parameters.properties.insert(parameters.properties.begin(), parameters.properties.end());
-
-					for (auto &m : c.second->GetMatches(segments, index + 1, match.parameters))
-					{
-						result.push_back(m);
-					}
+					match.second.insert(parameters.begin(), parameters.end());
+					c.second->GetMatches(results, segments, index + 1, match.second);
 				}
 			}
 		}
-
-		return result;
 	}
 
 
@@ -103,42 +96,3 @@ namespace niven
 	}
 }
 
-
-/*
-        public virtual TrieNode GetNodeForSegment(TrieNode parent, string segment)
-        {
-            if (parent == null)
-            {
-                return new RootNode(this);
-            }
-
-            var chars = segment.ToCharArray();
-            var start = chars[0];
-            var end = chars[chars.Length - 1];
-
-            if (start == '(' && end == ')')
-            {
-                return new RegExNode(parent, segment, this);
-            }
-
-            if (start == '{' && end == '}' && chars.Count(c => c == '{' || c == '}') == 2)
-            {
-                return this.GetCaptureNode(parent, segment);
-            }
-
-            if (segment.StartsWith("^(") && (segment.EndsWith(")") || segment.EndsWith(")$")))
-            {
-                return new GreedyRegExCaptureNode(parent, segment, this);
-            }
-
-            if (CaptureNodeWithMultipleParameters.IsMatch(segment))
-            {
-                return new CaptureNodeWithMultipleParameters(parent, segment, this);
-            }
-
-            return new LiteralNode(parent, segment, this);
-        }
-
-    }
-}
-*/

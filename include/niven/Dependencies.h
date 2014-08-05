@@ -5,7 +5,6 @@
 #include <memory>
 #include <map>
 
-#include <iostream>
 
 namespace niven
 {
