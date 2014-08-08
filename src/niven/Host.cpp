@@ -2,7 +2,7 @@
 #include <microhttpd.h>
 
 // Debug
-#include <entity/json.h>
+//#include <entity/json.h>
 
 using namespace std;
 using namespace emg;
@@ -16,38 +16,8 @@ namespace niven
 	{
 		this->modules = Type<NivenModule>::CreateAll();
 		this->router.Initialise(this->modules);
-
-		//for (int i=0; i<INITIAL_CONTEXT_POOL; i++) this->contextPool.push_back(new Context(this));
 	}
 
-
-	/*Context *NivenHost::Claim(const char *url, const char *method, MHD_Connection *connection)
-	{
-		Context *result = nullptr;
-
-		this->cs.lock();
-
-			if (this->contextPool.size())
-			{
-				result = this->contextPool.back();
-				this->contextPool.pop_back();
-			}
-			else result = new Context(this); //, {url, method, connection});
-
-		this->cs.unlock();
-
-		result->Set(url, method, connection);
-
-		return result;
-	}
-
-
-	void NivenHost::Release(Context *context)
-	{
-		this->cs.lock();
-		this->contextPool.push_back(context);
-		this->cs.unlock();
-	}*/
 
 
 	bool NivenHost::Run(int port, int poolSize)
@@ -59,8 +29,6 @@ namespace niven
 				if (!*ptr)
 				{
 					*ptr = new Context(static_cast<Dependencies *>(cls), {url, method, connection});
-					//*ptr = static_cast<NivenHost *>(cls)->Claim(url, method, connection);
-
 					return MHD_YES;
 				}
 
@@ -75,10 +43,20 @@ namespace niven
 					return MHD_YES;
 				}
 
-				int result	= static_cast<NivenHost *>(cls)->router.Resolve(*context).Send(connection);
+				auto response = static_cast<NivenHost *>(cls)->BeforeRequest.Invoke(*context);
+
+				if (response.status == Http::None)
+				{
+					response = static_cast<NivenHost *>(cls)->router.Resolve(*context);
+
+					static_cast<NivenHost *>(cls)->AfterRequest.Invoke(*context, response);
+				}
+
+
+				//int result	= static_cast<NivenHost *>(cls)->router.Resolve(*context).Send(connection);
+				int result	= response.Send(connection);
 				*ptr		= nullptr;
 
-				//static_cast<NivenHost *>(cls)->Release(context);
 				delete context;
 				return result;
 			};

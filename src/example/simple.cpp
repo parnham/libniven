@@ -55,8 +55,8 @@ class SampleModule : public NivenModule
 
 		SampleModule() : NivenModule("/sample")
 		{
-			//Before += [](Context &c)
-			//After +=	[](Context &c, Response &r)?? or response inside context?
+			//Before	+= [](Context &c) { cout << "Before module" << endl; return nullptr; };
+			//After	+= [](Context &c, Response &r) { cout << "After module" << endl; };
 
 			Get["/"]			= [](Context &c) { return "The moon's a balloon"; };
 			Get["/test"]		= [](Context &c) { return Test(); };
@@ -141,6 +141,9 @@ int main(int argc, char **argv)
 
 	host.Register<IResource, ConcreteResource>();
 	//host.Register<IResource, AnotherResource>(42);
+
+	//host.BeforeRequest	+= [](Context &c) { cout << "Before routing" << endl; return nullptr; };
+	//host.AfterRequest	+= [](Context &c, Response &r) { cout << "The end" << endl; };
 
 	if (host.Run(8090))
 	{

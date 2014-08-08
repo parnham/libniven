@@ -19,6 +19,7 @@ namespace niven
 		Response(const Http &status)										: status(status) {}
 		Response(const char *data, const Http &status = Http::OK)			: status(status), data(data) {}
 		Response(const std::string &data, const Http &status = Http::OK)	: status(status), data(data) {}
+		Response(std::nullptr_t null)										: status(Http::None), headers() {}
 
 		Response &WithHeader(std::string key, std::string value);
 

@@ -34,22 +34,32 @@ namespace niven
 
 			if (matches.size())
 			{
-				auto best = max_element(matches.begin(), matches.end(), [](RouteMatch &a, RouteMatch &b) { return a.route->score < b.route->score; });
-				context.parameters = best->parameters;
+				auto best 			= max_element(matches.begin(), matches.end(), [](RouteMatch &a, RouteMatch &b) { return a.route->score < b.route->score; });
+				context.parameters 	= best->parameters;
+				auto response		= best->route->parent->Before.Invoke(context);
 
-				try
+				if (response.status == Http::None)
 				{
-					if (best->route->action) return best->route->action(context);
-				}
-				catch (const std::exception &e)
-				{
-					return { e.what(), Http::InternalServerError };
+					try
+					{
+						if (best->route->action)
+						{
+							response = best->route->action(context);
+							best->route->parent->After.Invoke(context, response);
+						}
+						else response = { "Missing action for route: " + best->route->path, Http::InternalServerError };
+					}
+					catch (const std::exception &e)
+					{
+						response = { e.what(), Http::InternalServerError };
+					}
 				}
 
-				return { "Missing action for route: " + best->route->path, Http::InternalServerError };
+				return response;
 			}
 		}
 
 		return Http::NotFound;
 	}
 }
+

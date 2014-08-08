@@ -5,11 +5,12 @@
 #include <string>
 #include <niven/Context.h>
 #include <niven/Response.h>
+#include <niven/Pipeline.h>
 
 
 namespace niven
 {
-	typedef std::function<Response(Context&)> Action;
+	class NivenModule;
 
 
 	class Route
@@ -19,14 +20,14 @@ namespace niven
 
 		public:
 
-			Route(std::string method, std::string path);
+			Route(NivenModule *parent, std::string method, std::string path);
 
-			Route &operator=(const Action action);
+			Route &operator=(const Action &action);
 
 		private:
 			Action action = nullptr;
+			NivenModule *parent;
 
-			//std::string module;
 			std::string method;
 			std::string path;
 			std::vector<std::string> segments;	// Created from the full path

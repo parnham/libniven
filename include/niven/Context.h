@@ -12,7 +12,9 @@ namespace niven
 	{
 		public:
 			Request request;
-			std::map<std::string, std::string> parameters;
+			std::map<std::string, std::string> parameters;	// Rename to captures?
+
+
 			//ent::tree parameters;	// Any parameters that were part of the path
 			//std::map<std::string, std::string> parameters;	// tree?
 

@@ -1,12 +1,14 @@
 #include "niven/Response.h"
 
+using namespace ent;
+
 
 namespace niven
 {
-	Response::Response(const ent::entity &data)
+	Response::Response(const entity &data)
 	{
 		this->headers["Content-Type"]	= "application/json";
-		this->data						= const_cast<ent::entity &>(data).to<ent::json>();
+		this->data						= const_cast<entity &>(data).to<json>();
 	}
 
 
@@ -24,7 +26,6 @@ namespace niven
 		for (auto &h : this->headers) MHD_add_response_header(response, h.first.c_str(), h.second.c_str());
 
 		MHD_add_response_header(response, "Server", "niven/0.1");
-		//MHD_add_response_header(response, "Keep-Alive", "timeout=60,max=1000");
 		MHD_add_response_header(response, "Keep-Alive", "timeout=60");
 
 		int result = MHD_queue_response(connection, (int)this->status, response);

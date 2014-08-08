@@ -5,13 +5,11 @@ using namespace std;
 
 namespace niven
 {
-
-	// Route::Route(std::string module, std::string method, std::string path)
-	Route::Route(string method, string path)
+	Route::Route(NivenModule *parent, string method, string path)
 	{
-		//this->module	= module;
 		this->method	= method;
 		this->path		= path;
+		this->parent	= parent;
 
 		string segment;
 		int depth = 0;	// Parenthesis depth
@@ -34,7 +32,7 @@ namespace niven
 	}
 
 
-	Route &Route::operator=(const Action action)
+	Route &Route::operator=(const Action &action)
 	{
 		this->action = action;
 		return *this;

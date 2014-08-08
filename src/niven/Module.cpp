@@ -5,7 +5,7 @@ namespace niven
 {
 	Route &NivenModule::RouteBuilder::operator[](const std::string path)
 	{
-		auto route = std::make_shared<Route>(this->method, this->GetPath(path));
+		auto route = std::make_shared<Route>(this->parent, this->method, this->GetPath(path));
 
 		this->parent->routes.push_back(route);
 

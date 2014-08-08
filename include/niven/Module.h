@@ -2,6 +2,7 @@
 
 #include <emergent/Type.h>
 #include <niven/Request.h>
+#include <niven/Pipeline.h>
 #include <niven/routing/Route.h>
 
 
@@ -40,6 +41,9 @@ namespace niven
 			RouteBuilder Post	= { this, "POST" };
 			RouteBuilder Put	= { this, "PUT" };
 			RouteBuilder Delete	= { this, "DELETE" };
+
+			BeforePipeline Before;
+			AfterPipeline After;
 
 		private:
 

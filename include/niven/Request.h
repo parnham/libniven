@@ -20,7 +20,5 @@ namespace niven
 
 		Request() {}
 		Request(std::string url, std::string method, MHD_Connection *connection);
-
-		//void Set(std::string url, std::string method, MHD_Connection *connection);
 	};
 }
