@@ -45,17 +45,20 @@ namespace niven
 						if (best->route->action)
 						{
 							response = best->route->action(context);
-							best->route->parent->After.Invoke(context, response);
+							//return best->route->action(context);
 						}
-						else response = { "Missing action for route: " + best->route->path, Http::InternalServerError };
+						else return { "Missing action for route: " + best->route->path, Http::InternalServerError };
 					}
 					catch (const std::exception &e)
 					{
-						response = { e.what(), Http::InternalServerError };
+						return { e.what(), Http::InternalServerError };
 					}
 				}
 
+				best->route->parent->After.Invoke(context, response);
+
 				return response;
+				//return nullptr;
 			}
 		}
 

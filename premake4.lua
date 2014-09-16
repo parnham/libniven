@@ -6,7 +6,6 @@ solution "psinc"
 	includedirs		"include"
 	libdirs			"lib"
 	buildoptions	{ "-Wall", "-Wno-sign-compare", "-std=c++11", "-O3", "-fPIC", "-D_FORTIFY_SOURCE=2" }
-	-- buildoptions	{ "-pg" }
 	excludes		{ "**.bak", "**~" }
 
 	configuration "linux"

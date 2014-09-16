@@ -13,17 +13,16 @@ namespace niven
 	{
 		public:
 
-
-
 			TrieNode(std::string segment, int score) : score(score), routeSegment(segment) {}
 
 			void Add(std::shared_ptr<Route> route, int index = 0, int score = 0);
 
-			void GetMatches(std::vector<RouteMatch> &results, const std::vector<std::string> &segments, int index = 0, const std::map<std::string, std::string> &parameters = {});//, ent::tree parameters = ent::tree());
-
-		protected:
+			virtual void GetMatches(std::vector<RouteMatch> &results, const std::vector<std::string> &segments, int index = 0, const std::map<std::string, std::string> &parameters = {});
+			//, ent::tree parameters = ent::tree());
 
 			virtual SegmentMatch Match(std::string segment) = 0;
+
+		protected:
 
 			int score;
 			std::string routeSegment;

@@ -1,6 +1,7 @@
 #include "niven/routing/nodes/TrieNode.h"
 #include "niven/routing/nodes/LiteralNode.h"
 #include "niven/routing/nodes/CaptureNode.h"
+#include "niven/routing/nodes/GreedyNode.h"
 #include <emergent/Logger.h>
 #include <algorithm>
 
@@ -17,7 +18,7 @@ namespace niven
 			route->score = score + this->score;
 			this->routes.push_back(route);
 
-			FLOG(info, "Added %s at %d with a score of %d", route->path, index, route->score);
+			FLOG(info, "Added %s: %s at %d with a score of %d", route->method, route->path, index, route->score);
 		}
 		else
 		{
@@ -72,14 +73,14 @@ namespace niven
 			if (segment.substr(segment.size() - 2) == "?}")
 			{
 				return make_shared<OptionalCaptureNode>(segment);
-			}
+			}*/
 
 			if (segment.substr(segment.size() - 2) == "*}")
 			{
-				return make_shared<GreedyCaptureNode>(segment);
+				return make_shared<GreedyNode>(segment);
 			}
 
-			if (count(segment.begin(), segment.end(), '?'))
+			/*if (count(segment.begin(), segment.end(), '?'))
 			{
 				return make_shared<CaptureNodeWithDefault>(segment);
 			}*/

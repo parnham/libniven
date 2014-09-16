@@ -8,6 +8,7 @@ namespace niven
 	class LiteralNode : public TrieNode
 	{
 		public:
+
 			LiteralNode(std::string segment) : TrieNode(segment, 10000) {}
 
 			SegmentMatch Match(std::string segment)

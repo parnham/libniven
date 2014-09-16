@@ -7,8 +7,6 @@
 using namespace std;
 using namespace emg;
 
-// #define INITIAL_CONTEXT_POOL 256
-
 
 namespace niven
 {
@@ -52,8 +50,6 @@ namespace niven
 					static_cast<NivenHost *>(cls)->AfterRequest.Invoke(*context, response);
 				}
 
-
-				//int result	= static_cast<NivenHost *>(cls)->router.Resolve(*context).Send(connection);
 				int result	= response.Send(connection);
 				*ptr		= nullptr;
 

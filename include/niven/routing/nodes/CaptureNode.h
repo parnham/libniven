@@ -20,6 +20,7 @@ namespace niven
 				return { true, {{ this->name, segment }} };
 			}
 
+
 		private:
 
 			std::string name;
