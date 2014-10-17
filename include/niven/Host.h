@@ -1,6 +1,7 @@
 #pragma once
 
 #include <emergent/Logger.h>
+#include <niven/Configuration.h>
 #include <niven/Module.h>
 #include <niven/Http.h>
 #include <niven/Dependencies.h>
@@ -12,18 +13,16 @@
 
 namespace niven
 {
-
-
-	class NivenHost : public Dependencies
+	class NivenHost : public Dependencies, public Configuration
 	{
 		public:
 
 			NivenHost();
 
-			bool Run(int port, int poolSize = 8);
+			bool Run();
 			void Stop();
 
-			//Configuration &Configure()...
+			//Configuration &Configure();
 
 			BeforePipeline BeforeRequest;
 			AfterPipeline AfterRequest;
@@ -36,6 +35,7 @@ namespace niven
 			std::map<std::string, std::unique_ptr<NivenModule>> modules;
 
 			MHD_Daemon *daemon = nullptr;
+			//Configuration configuration;
 			Router router;
 	};
 }

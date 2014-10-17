@@ -14,7 +14,7 @@ solution "psinc"
 	project "libniven"
 		kind				"SharedLib"
 		targetname			"niven"
-		links				{ "emergent", "microhttpd" }
+		links				{ "emergent", "microhttpd", "gcrypt" }
 		linkoptions 		{ "-Wl,-soname,libniven.so.0" }
 		files				{ "include/niven/**h", "src/niven/**.cpp" }
 		configuration "linux"
@@ -23,6 +23,6 @@ solution "psinc"
 	project "example"
 		kind		"ConsoleApp"
 		targetdir	"bin"
-		links		{ "emergent", "libniven", "entity" }
+		links		{ "emergent", "libniven" } --, "entity" }
 		files		{ "src/example/**.cpp" }
 

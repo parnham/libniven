@@ -15,8 +15,8 @@ namespace niven
 
 	std::string NivenModule::RouteBuilder::GetPath(std::string path)
 	{
-		auto relative	= emg::trim(path, '/');
-		auto parent		= emg::trim(this->parent->path, '/');
+		auto relative	= emg::String::trim(path, '/');
+		auto parent		= emg::String::trim(this->parent->path, '/');
 
 		return "/" + (parent.empty() ? relative : relative.empty() ? parent : parent + "/" + relative);
 	}

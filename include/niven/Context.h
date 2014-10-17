@@ -1,6 +1,7 @@
 #pragma once
 
-#include <entity/json.h>
+#include <entity/entity.hpp>
+#include <entity/json.hpp>
 #include <niven/Request.h>
 #include <niven/Dependencies.h>
 
@@ -12,16 +13,13 @@ namespace niven
 	{
 		public:
 			Request request;
+
 			std::map<std::string, std::string> parameters;	// Rename to captures?
-
-
-			//ent::tree parameters;	// Any parameters that were part of the path
-			//std::map<std::string, std::string> parameters;	// tree?
-
 			std::string operator[](const std::string key) { return this->parameters[key]; }
 
+			// ent::tree captures;
+			// ent::tree operator[](const std::string key) { return this->captures[key]; }
 
-			//Context(Dependencies *dependencies) : dependencies(dependencies) {}
 			Context(Dependencies *dependencies, const Request &request) : request(request), dependencies(dependencies) {}
 
 
@@ -37,7 +35,8 @@ namespace niven
 				// Check headers and type
 				//if (this->request.headers["Content-Type"] == "application/json")
 				//{
-					return ent::entity::from<T, ent::json>(this->request.body);
+					//return ent::entity::from<T, ent::json>(this->request.body);
+					return ent::entity::decode<ent::json, T>(this->request.body);
 				//}
 
 				//return T();

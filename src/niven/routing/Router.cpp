@@ -1,5 +1,6 @@
 #include "niven/routing/Router.h"
 #include <emergent/Logger.h>
+#include <algorithm>
 
 using namespace std;
 using namespace emg;
@@ -30,12 +31,13 @@ namespace niven
 
 		if (!path.empty() && this->trie.count(method))
 		{
-			this->trie[method].GetMatches(matches, explode(path, "/"));
+			this->trie[method].GetMatches(matches, String::explode(path, "/"));
 
 			if (matches.size())
 			{
 				auto best 			= max_element(matches.begin(), matches.end(), [](RouteMatch &a, RouteMatch &b) { return a.route->score < b.route->score; });
 				context.parameters 	= best->parameters;
+				// context.captures 	= best->parameters;
 				auto response		= best->route->parent->Before.Invoke(context);
 
 				if (response.status == Http::None)

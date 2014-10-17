@@ -4,8 +4,7 @@
 #include <ctime>
 #include <niven/Http.h>
 #include <niven/Cookie.h>
-#include <entity/json.h>
-#include <entity/json2.h>
+#include <entity/entity.hpp>
 
 #include <emergent/Path.h>
 #include <microhttpd.h>
@@ -24,7 +23,6 @@ namespace niven
 
 		Response() {}
 		Response(const ent::entity &data);
-		Response(const ent::entity2 &data);
 		Response(const ent::tree &data);
 		Response(const Path &path);
 		Response(const Http &status)										: status(status) {}

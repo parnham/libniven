@@ -1,6 +1,7 @@
 #include "niven/Response.h"
 #include "niven/Mime.h"
 #include <emergent/Emergent.h>
+#include <entity/json.hpp>
 
 using namespace std;
 using namespace ent;
@@ -11,20 +12,14 @@ namespace niven
 	Response::Response(const entity &data)
 	{
 		this->headers["Content-Type"]	= "application/json";
-		this->data						= const_cast<entity &>(data).to<json>();
-	}
-
-	Response::Response(const entity2 &data)
-	{
-		this->headers["Content-Type"]	= "application/json";
-		this->data						= encode<json2>(const_cast<entity2 &>(data));
+		this->data						= entity::encode<json>(const_cast<entity&>(data));
 	}
 
 
 	Response::Response(const tree &data)
 	{
 		this->headers["Content-Type"]	= "application/json";
-		this->data						= json::to(data, false);
+		this->data						= tree::encode<json>(data);
 	}
 
 
@@ -35,7 +30,7 @@ namespace niven
 		if (path.exists() && Mime::ByExtension.count(extension))
 		{
 			this->headers["Content-Type"]	= Mime::ByExtension.at(extension);
-			this->data 						= emergent::load(path);
+			this->data 						= emergent::String::load(path);
 		}
 		else this->status = Http::NotFound;
 	}

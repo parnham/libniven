@@ -12,7 +12,7 @@ namespace niven
 
 			CaptureNode(std::string segment) : TrieNode(segment, 1000)
 			{
-				this->name = emg::trim(emg::trim(segment, '{'), '}');
+				this->name = emg::String::trim(emg::String::trim(segment, '{'), '}');
 			}
 
 			SegmentMatch Match(std::string segment)

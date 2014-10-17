@@ -1,9 +1,6 @@
 #include "niven/Host.h"
 #include <microhttpd.h>
 
-// Debug
-//#include <entity/json.h>
-
 using namespace std;
 using namespace emg;
 
@@ -17,8 +14,7 @@ namespace niven
 	}
 
 
-
-	bool NivenHost::Run(int port, int poolSize)
+	bool NivenHost::Run()
 	{
 		if (!this->daemon)
 		{
@@ -57,12 +53,35 @@ namespace niven
 				return result;
 			};
 
-			this->daemon = MHD_start_daemon(
-				MHD_USE_SELECT_INTERNALLY | MHD_USE_EPOLL_LINUX_ONLY,
-				port, nullptr, nullptr, handler, this,
-				MHD_OPTION_THREAD_POOL_SIZE, poolSize,
-				MHD_OPTION_END
-			);
+			auto log = [](void *p, const char *s, va_list a) {
+				char buffer[1024];
+				vsnprintf(buffer, 1024, s, a);
+				LOG(error, buffer);
+			};
+
+
+			if (this->ssl)
+			{
+				this->daemon = MHD_start_daemon(
+					MHD_USE_SELECT_INTERNALLY | MHD_USE_EPOLL_LINUX_ONLY | MHD_USE_SSL | MHD_USE_DEBUG,
+					this->port, nullptr, nullptr, handler, this,
+					MHD_OPTION_THREAD_POOL_SIZE,	this->threads,
+					MHD_OPTION_HTTPS_MEM_KEY,		this->sslKey.c_str(),
+					MHD_OPTION_HTTPS_MEM_CERT,		this->sslCertificate.c_str(),
+					MHD_OPTION_EXTERNAL_LOGGER, 	(MHD_LogCallback)log, nullptr,
+					MHD_OPTION_END
+				);
+			}
+			else
+			{
+				this->daemon = MHD_start_daemon(
+					MHD_USE_SELECT_INTERNALLY | MHD_USE_EPOLL_LINUX_ONLY | MHD_USE_DEBUG,
+					this->port, nullptr, nullptr, handler, this,
+					MHD_OPTION_THREAD_POOL_SIZE,	this->threads,
+					MHD_OPTION_EXTERNAL_LOGGER,		(MHD_LogCallback)log, nullptr,
+					MHD_OPTION_END
+				);
+			}
 		}
 
 		return this->daemon;
@@ -74,7 +93,6 @@ namespace niven
 		if (this->daemon) MHD_stop_daemon(this->daemon);
 
 		this->daemon = nullptr;
-
-		//cout << this->contextPool.size() << endl;
 	}
 }
+

@@ -8,7 +8,7 @@ namespace niven
 {
 	GreedyNode::GreedyNode(string segment) : TrieNode(segment, 0)
 	{
-		this->name = emg::trim(emg::trim(emg::trim(segment, '{'), '}'), '*');
+		this->name = String::trim(String::trim(String::trim(segment, '{'), '}'), '*');
 	}
 
 
