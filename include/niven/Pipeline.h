@@ -6,10 +6,14 @@
 
 namespace niven
 {
+	// Action to be performed, processes the request and returns a response.
 	typedef std::function<Response(Context&)> Action;
+
+	// Action that can modify a response after a request has been processed.
 	typedef std::function<void(Context&, Response&)> AfterAction;
 
 
+	// Stores a list of actions to be invoked.
 	template <class T> class Pipeline
 	{
 		public:
@@ -26,6 +30,8 @@ namespace niven
 	};
 
 
+	// Pipeline for actions that can be called before the specific route
+	// action is invoked.
 	class BeforePipeline : public Pipeline<Action>
 	{
 		public:
@@ -34,6 +40,8 @@ namespace niven
 	};
 
 
+	// Pipeline for actions that can be called after the specific route
+	// action is invoked.
 	class AfterPipeline : public Pipeline<AfterAction>
 	{
 		public:

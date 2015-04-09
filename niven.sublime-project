@@ -16,7 +16,7 @@
 			"shell": true,
 			"file_regex": "^(.+):([0-9]+):([0-9]+): (.*)$",
 			"working_dir": "${project_path}",
-			"cmd": [ "premake4 gmake && make -j8" ],
+			"cmd": [ "premake5 gmake && make -j8" ],
 		}
 	],
 
@@ -27,6 +27,7 @@
 
     	"sublimeclang_show_output_panel": false,
 		"sublimeclang_enable_fast_completions": false,
+		"sublimeclang_additional_language_options": { "c++" : ["-std=c++14"] },
 		"sublimeclang_options":
 		[
 			"-isystem", "/usr/include",
@@ -35,6 +36,10 @@
 			"-I${project_path}/include",
 			"-Wall",
 			"-Wno-overloaded-virtual"
-		]
+		],
+		"sublimeclang_additional_language_options":
+		{
+			"c++" : ["-std=c++14"],
+		}
 	}
 }

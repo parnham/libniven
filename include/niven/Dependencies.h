@@ -8,25 +8,23 @@
 
 namespace niven
 {
+	// A dependency container implementation with basic functionality.
 	class Dependencies
 	{
 		public:
 
+			// Register a concrete class type with the container. Instances will be created (using the supplied
+			// constructor parameters) each time it is resolved.
 			template <class Interface, class Concrete, class... Parameters> void Register(Parameters... parameters)
 			{
 				static_assert(std::is_base_of<Interface, Concrete>::value, "Concrete class must be derived from Interface type");
 
-				// The bind is a workaround until the next version of GCC which fixes an
-				// issue with captured parameter pack expansion within a lambda.
-				this->containers[typeid(Interface).name()].Set(std::bind(
-					[](Parameters... parameters) {
-						return new Concrete(std::forward<Parameters>(parameters)...);
-					},
-					std::forward<Parameters>(parameters)...
-				));
+				this->containers[typeid(Interface).name()].Set([parameters...]() { return new Concrete(parameters...); });
 			}
 
 
+			// Register a singleton with the container. Any registered singleton must be thread safe since
+			// it will be accessed from concurrent request handlers.
 			template <class Interface> void Register(std::shared_ptr<Interface> singleton)
 			{
 				auto copy = new std::shared_ptr<Interface>(singleton);
@@ -35,16 +33,17 @@ namespace niven
 			}
 
 
+			// Resolve the required type. Use the same function to retrieve singletons
+			// and standard instances alike.
 			template <class Interface> std::shared_ptr<Interface> Resolve()
 			{
-				auto name 	= typeid(Interface).name();
-				auto &con	= this->containers[name];
+				auto &con = this->containers[typeid(Interface).name()];
 
 				if (con.retrieve)
 				{
 					return con.dispose
-						? *static_cast<std::shared_ptr<Interface> *>(this->containers[name].retrieve())
-						: std::shared_ptr<Interface>((Interface *)this->containers[name].retrieve());
+						? *static_cast<std::shared_ptr<Interface> *>(con.retrieve())
+						: std::shared_ptr<Interface>((Interface *)con.retrieve());
 				}
 
 				return nullptr;
@@ -53,6 +52,8 @@ namespace niven
 
 		private:
 
+			// Container for a given base type. It simply contains functions
+			// for dependency retrieval and cleaning up.
 			struct Container
 			{
 				std::function<void *()> retrieve	= nullptr;
@@ -73,6 +74,7 @@ namespace niven
 					if (this->dispose) this->dispose();
 				}
 			};
+
 
 			std::map<std::string, Container> containers;
 	};

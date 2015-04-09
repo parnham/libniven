@@ -5,7 +5,7 @@ using namespace std;
 
 namespace niven
 {
-	Route::Route(NivenModule *parent, string method, string path)
+	Route::Route(Module *parent, string method, string path)
 	{
 		this->method	= method;
 		this->path		= path;

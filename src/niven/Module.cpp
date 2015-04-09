@@ -3,7 +3,7 @@
 
 namespace niven
 {
-	Route &NivenModule::RouteBuilder::operator[](const std::string path)
+	Route &Module::RouteBuilder::operator[](const std::string path)
 	{
 		auto route = std::make_shared<Route>(this->parent, this->method, this->GetPath(path));
 
@@ -13,7 +13,7 @@ namespace niven
 	}
 
 
-	std::string NivenModule::RouteBuilder::GetPath(std::string path)
+	std::string Module::RouteBuilder::GetPath(std::string path)
 	{
 		auto relative	= emg::String::trim(path, '/');
 		auto parent		= emg::String::trim(this->parent->path, '/');

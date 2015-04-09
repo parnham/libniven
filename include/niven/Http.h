@@ -3,6 +3,7 @@
 
 namespace niven
 {
+	// Lookup for HTTP response codes.
 	enum class Http
 	{
 		None							= 0,

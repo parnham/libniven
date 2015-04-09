@@ -26,7 +26,7 @@ namespace niven { namespace crypto
 	}
 
 
-	vector<byte> Hash::AsBinary(const string &data, const string &salt, Algorithm algorithm)
+	const vector<byte> Hash::AsBinary(const string &data, const string &salt, Algorithm algorithm)
 	{
 		int algo = GCRY_MD_SHA256;
 
@@ -51,7 +51,7 @@ namespace niven { namespace crypto
 	}
 
 
-	string Hash::AsHex(const string &data, const string &salt, Algorithm algorithm)
+	const string Hash::AsHex(const string &data, const string &salt, Algorithm algorithm)
 	{
 		stringstream result;
 		result << hex << setfill('0');
@@ -65,7 +65,7 @@ namespace niven { namespace crypto
 	}
 
 
-	string Hash::AsBase64(const string &data, const string &salt, Algorithm algorithm)
+	const string Hash::AsBase64(const string &data, const string &salt, Algorithm algorithm)
 	{
 		return base64::encode(AsBinary(data, salt, algorithm));
 	}

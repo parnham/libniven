@@ -3,47 +3,51 @@
 
 using namespace std;
 using namespace emg;
+using namespace ent;
+
 
 namespace niven
 {
 	GreedyNode::GreedyNode(string segment) : TrieNode(segment, 0)
 	{
+		// Retrieve the capture name from the route segment.
 		this->name = String::trim(String::trim(String::trim(segment, '{'), '}'), '*');
 	}
 
 
-	SegmentMatch GreedyNode::Match(string segment)
+	void GreedyNode::GetMatches(vector<RouteMatch> &results, const vector<string> &segments, int index, const tree &captures)
 	{
-		return { true, {} };
-	}
+		tree all = captures;
 
-
-	void GreedyNode::GetMatches(vector<RouteMatch> &results, const vector<string> &segments, int index, const map<string, string> &parameters)
-	{
-		auto p			= parameters;
-		p[this->name]	= accumulate(
+		// Add all remaining segments (stuck back together) as a capture.
+		all.set(this->name, accumulate(
 			segments.begin() + index - 1, segments.end(), string(),
-			[](const string &a, const string &b) { return a + '/' + b; }
-		);
+			[](auto &a, auto &b) { return a + '/' + b; }
+		));
 
+		// A greedy node may still have children, retrieve any matches
+		// for them (since they may have a higher score).
 		if (this->children.size())
 		{
 			for (; index < segments.size(); index++)
 			{
 				for (auto &c : this->children)
 				{
-					auto match = c.second->Match(segments[index]);
-
-					if (match.first)
+					if (c.second->IsMatch(segments[index]))
 					{
-						match.second.insert(p.begin(), p.end());
-						c.second->GetMatches(results, segments, index + 1, match.second);
+						c.second->GetMatches(results, segments, index + 1, c.second->GetCaptures(all, segments[index]));
 					}
 				}
 			}
 		}
 
-		for (auto &r : this->routes) results.push_back({r, p});
+		results.push_back({ this->route, all });
+	}
+
+
+	bool GreedyNode::IsMatch(const std::string &segment)
+	{
+		return true;
 	}
 }
 

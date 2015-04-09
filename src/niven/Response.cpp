@@ -52,7 +52,8 @@ namespace niven
 
 	int Response::Send(MHD_Connection *connection)
 	{
-		auto response = MHD_create_response_from_data(this->data.size(), (void *)this->data.data(), MHD_NO, MHD_YES);
+		// auto response = MHD_create_response_from_buffer(this->data.size(), (void *)this->data.data(), MHD_RESPMEM_PERSISTENT);
+		auto response = MHD_create_response_from_buffer(this->data.size(), (void *)this->data.data(), MHD_RESPMEM_MUST_COPY);
 
 		for (auto &h : this->headers) MHD_add_response_header(response, h.first.c_str(), h.second.c_str());
 		for (auto &c : this->cookies) MHD_add_response_header(response, "Set-Cookie", c.Build().c_str());

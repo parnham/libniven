@@ -8,7 +8,7 @@ using namespace emg;
 
 namespace niven
 {
-	void Router::Initialise(map<string, unique_ptr<NivenModule>> &modules)
+	void Router::Initialise(map<string, unique_ptr<Module>> &modules)
 	{
 		// Build the trie
 		for (auto &m : modules)
@@ -31,23 +31,27 @@ namespace niven
 
 		if (!path.empty() && this->trie.count(method))
 		{
+			// Find all relevant route matches for the request URL.
 			this->trie[method].GetMatches(matches, String::explode(path, "/"));
 
 			if (matches.size())
 			{
-				auto best 			= max_element(matches.begin(), matches.end(), [](RouteMatch &a, RouteMatch &b) { return a.route->score < b.route->score; });
-				context.parameters 	= best->parameters;
-				// context.captures 	= best->parameters;
+				// Pick the best route by score, copy the captures and apply
+				// any Before actions in the parent module.
+				auto best 			= max_element(matches.begin(), matches.end(), [](auto &a, auto &b) { return a.route->score < b.route->score; });
+				context.captures 	= best->captures;
 				auto response		= best->route->parent->Before.Invoke(context);
 
 				if (response.status == Http::None)
 				{
+					// If the Before actions did not return a response status
+					// then run the route specific action. An error response is
+					// generated in the event that an action throws an exception.
 					try
 					{
 						if (best->route->action)
 						{
 							response = best->route->action(context);
-							//return best->route->action(context);
 						}
 						else return { "Missing action for route: " + best->route->path, Http::InternalServerError };
 					}
@@ -57,10 +61,10 @@ namespace niven
 					}
 				}
 
+				// Apply any After actions in the parent module.
 				best->route->parent->After.Invoke(context, response);
 
 				return response;
-				//return nullptr;
 			}
 		}
 

@@ -7,18 +7,26 @@
 
 using namespace std;
 using namespace emg;
+using namespace ent;
 
 namespace niven
 {
 
 	void TrieNode::Add(shared_ptr<Route> route, int index, int score)
 	{
+		// If this is a leaf node for the route then generate a score
+		// and store the route. Otherwise find/create the correct type
+		// of child node and pass the route on down.
 		if (index >= route->segments.size())
 		{
 			route->score = score + this->score;
-			this->routes.push_back(route);
 
-			FLOG(info, "Added %s: %s at %d with a score of %d", route->method, route->path, index, route->score);
+			if (!this->route || route->score > this->route->score)
+			{
+				this->route = route;
+				FLOG(info, "Added %s: %s at %d with a score of %d", route->method, route->path, index, route->score);
+			}
+			else FLOG(info, "Ignored %s: %s because a route already exists at this node", route->method, route->path);
 		}
 		else
 		{
@@ -30,29 +38,29 @@ namespace niven
 	}
 
 
-	void TrieNode::GetMatches(vector<RouteMatch> &results, const vector<string> &segments, int index, const std::map<std::string, std::string> &parameters)
+	void TrieNode::GetMatches(vector<RouteMatch> &results, const vector<string> &segments, int index, const tree &captures)
 	{
+		// If this is a leaf node then add its route to the results otherwise
+		// retrieve matches for any child nodes.
 		if (index >= segments.size())
 		{
-			for (auto &r : this->routes) results.push_back({ r, parameters });
+			results.push_back({ this->route, captures });
 		}
 		else
 		{
+			auto &segment = segments[index];
+
 			for (auto &c : this->children)
 			{
-				auto match = c.second->Match(segments[index]);
-
-				if (match.first)
+				if (c.second->IsMatch(segment))
 				{
-					match.second.insert(parameters.begin(), parameters.end());
-					c.second->GetMatches(results, segments, index + 1, match.second);
+					c.second->GetMatches(results, segments, index + 1, c.second->GetCaptures(captures, segment));
 				}
 			}
 		}
 	}
 
 
-	// Create different types of node based on the segment
 	shared_ptr<TrieNode> TrieNode::Create(string segment)
 	{
 		char start 	= segment.front();
