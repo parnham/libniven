@@ -44,7 +44,10 @@ namespace niven
 		// retrieve matches for any child nodes.
 		if (index >= segments.size())
 		{
-			results.push_back({ this->route, captures });
+			if (this->route)
+			{
+				results.push_back({ this->route, captures });
+			}
 		}
 		else
 		{

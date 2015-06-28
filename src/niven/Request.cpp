@@ -22,7 +22,9 @@ namespace niven
 
 	string Request::Parameter(const string &key)
 	{
-		return MHD_lookup_connection_value(this->connection, MHD_GET_ARGUMENT_KIND, key.c_str());
+		auto result = MHD_lookup_connection_value(this->connection, MHD_GET_ARGUMENT_KIND, key.c_str());
+
+		return result ? result : "";
 	}
 
 
@@ -38,7 +40,9 @@ namespace niven
 
 	string Request::Header(const string &key)
 	{
-		return MHD_lookup_connection_value(this->connection, MHD_HEADER_KIND, key.c_str());
+		auto result = MHD_lookup_connection_value(this->connection, MHD_HEADER_KIND, key.c_str());
+
+		return result ? result : "";
 	}
 
 
@@ -54,7 +58,9 @@ namespace niven
 
 	string Request::Cookie(const string &key)
 	{
-		return MHD_lookup_connection_value(this->connection, MHD_COOKIE_KIND, key.c_str());
+		auto result = MHD_lookup_connection_value(this->connection, MHD_COOKIE_KIND, key.c_str());
+
+		return result ? result : "";
 	}
 
 

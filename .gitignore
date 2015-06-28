@@ -1,8 +1,6 @@
 *.deb
-*.pdb
 *.log
 *.make
-*.cbp
 *.depend
 *.layout
 *.workspace
@@ -13,7 +11,6 @@
 *.tags
 *~
 
-/*.txt
 Makefile
 
 bin/
@@ -21,7 +18,4 @@ lib/
 obj/
 .directory
 .build-*/
-.codelite/
-
-compilation.db
 

@@ -23,11 +23,11 @@ solution "niven"
 		configuration "linux"
 			postbuildcommands	"./strip lib/libniven.so"
 
-	project "simple"
-		kind		"ConsoleApp"
-		targetdir	"bin"
-		links		{ "emergent", "libniven", "hiredis", "pthread"  }
-		files		{ "src/examples/simple.cpp" }
+	-- project "example"
+	-- 	kind		"ConsoleApp"
+	-- 	targetdir	"bin"
+	-- 	links		{ "emergent", "libniven", "hiredis", "pthread"  }
+	-- 	files		{ "src/examples/example.cpp" }
 
 	project "test"
 		kind				"ConsoleApp"

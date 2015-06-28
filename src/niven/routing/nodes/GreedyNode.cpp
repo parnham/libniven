@@ -21,7 +21,7 @@ namespace niven
 
 		// Add all remaining segments (stuck back together) as a capture.
 		all.set(this->name, accumulate(
-			segments.begin() + index - 1, segments.end(), string(),
+			segments.begin() + index, segments.end(), segments[index - 1],
 			[](auto &a, auto &b) { return a + '/' + b; }
 		));
 
