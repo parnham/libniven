@@ -17,71 +17,9 @@
 #include "examples/Hashing.hpp"
 #include "examples/Files.hpp"
 
-// #include <niven/crypto/Hash.h>
-
 using namespace std;
 using namespace emg;
-using namespace ent;
 using namespace niven;
-// using namespace niven::crypto;
-
-
-
-class SampleModule : public Module
-{
-	public:
-
-		SampleModule() : Module("/sample")
-		{
-			//Before	+= [](Context &c) { cout << "Before module" << endl; return nullptr; };
-			//After	+= [](Context &c, Response &r) { cout << "After module" << endl; };
-
-			//Get["/"]			= [](auto) { return "The moon's a balloon"; };
-			// Get["/ok"]			= [](auto) { return Http::OK; };
-
-
-			// Get["/test"]		= [](auto) { return Test(); };
-			// Get["/tree"]		= [](auto) { return tree { { "name", "Test" }, { "list", vector<tree> { 1, 2, 3 }}}; };	// Equivalent of anonymous object in C#
-			// // Post["/bind"] = [](auto &c) { return "The name is: " + Bind<Test>(c).name; };
-			// Post["/bind"] = [](Context &c) { return "The name is: " + c.Bind<Test>().name; };
-
-
-			// Get["/resource"]	= [](Context &c) { return c.Resolve<IResource>()->Get(); };
-			// // Get["/resource"]	= [](auto &c) { return Resolve<IResource>(c)->Get(); };
-			// Get["/redis/{key}"] 	= [](Context &c) { return c.Resolve<Redis>()->Get(c["key"]); };
-			// Post["/redis/{key}"]	= [](Context &c) { c.Resolve<Redis>()->Set(c["key"], c.request.body); return Http::OK; };
-
-
-			// Get["/query"] = [](auto &c) { return c.request.Parameter("test"); };
-
-			// Get["/custom"]		= [](auto) { return Response().WithHeader("something", "else"); };
-
-			// Get["/broken"]		= nullptr;
-
-			// Get["/cookie"]		= [](auto) { return Response().WithCookie({"test", "value", DateTime::Now().AddSeconds(30)}); };
-			// Get["/cookie/show"]	= [](auto &c) {
-
-			// 	auto cookies = c.request.Cookies();
-
-			// 	return std::accumulate(cookies.begin(), cookies.end(), string(), [](auto &acc, auto &i) {
-			// 		return acc + i.first + " = " + i.second + "\n";
-			// 	});
-			// };
-
-			// Get["/test/{id}"]	= [](auto &c) { return "ID=" + c["id"]; };
-			// Get["/test/{id}/{name}"]	= [](auto &c) { return "ID=" + c["id"] + "  Name=" + c["name"]; };
-			// Get["/test/{id}/literal"]	= [](auto &c) { return "ID=" + c["id"]; };
-
-
-			Get["/file/{name*}"]		= [](auto &c) { return Path("/home/dan/temp") / c["name"]; };
-			Get["/file/{name*}/bar"]	= [](auto &c) { return c["name"]; };
-
-			// Get["/salt"]				= [](auto) { return Hash::Salt(); };
-			// Get["/hash/{value}"]		= [](auto &c) { return Hash::AsBase64(c["value"], Hash::Salt(), Algorithm::SHA256);  };
-		}
-};
-
-// REGISTER_MODULE(SampleModule)
 
 
 bool run = true;
