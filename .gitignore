@@ -14,8 +14,8 @@
 Makefile
 
 bin/
-lib/
 obj/
 .directory
 .build-*/
 
+/lib/

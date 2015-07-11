@@ -1,0 +1,12 @@
+Package: libniven-dev
+Version: 0.0.0
+Section: libdevel
+Priority: optional
+Architecture: amd64
+Maintainer: Dan Parnham <dan@emergent-design.co.uk>
+Installed-Size: 140
+Depends: libniven0
+Suggests: pkg-config
+Description: Development headers for libniven
+ Helpers for dealing with images, logging, file paths,
+ types and some simple structures.

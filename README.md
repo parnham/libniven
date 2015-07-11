@@ -43,7 +43,7 @@ Get["/person/{id}"] = [](auto &c) {
 
 A number of response types are supported simply by returning the appropriate value.
 As seen above you can return a string which will result in a "text/plain" content
-type and a status of ```Http::Ok```.
+type and a status of ```Http::Ok```. Other responses include:
 
 * HTTP status code, e.g. ```return Http::Unauthorized;```
 * Path which will return a file on disk if it exists,

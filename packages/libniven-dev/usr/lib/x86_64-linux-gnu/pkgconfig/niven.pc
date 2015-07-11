@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libniven
+Description: C++14 REST library
+Version: 0.0.0
+Requires:
+Libs: -L${libdir} -lniven
+Cflags: -I${includedir}/niven
