@@ -45,7 +45,6 @@ A number of response types are supported simply by returning the appropriate val
 As seen above you can return a string which will result in a "text/plain" content
 type and a status of ```Http::Ok```.
 
-* String
 * HTTP status code, e.g. ```return Http::Unauthorized;```
 * Path which will return a file on disk if it exists,
 e.g. ```return Path(filename);```
