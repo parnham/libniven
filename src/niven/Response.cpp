@@ -23,6 +23,13 @@ namespace niven
 	}
 
 
+	Response::Response(const vector<tree> &data)
+	{
+		this->headers["Content-Type"]	= "application/json";
+		this->data						= tree::encode<json>(data);
+	}
+
+
 	Response::Response(const Path &path)
 	{
 		auto extension = path.extension();

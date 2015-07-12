@@ -33,6 +33,9 @@ namespace niven
 		// A tree response will also be serialised to JSON.
 		Response(const ent::tree &data);
 
+		// A vector of tree will be serialised as a top-level JSON array.
+		Response(const std::vector<ent::tree> &data);
+
 		// A path response will return the file specified (if it exists).
 		// If the file cannot be found or the mimetype cannot be determined
 		// from the extension the response will only contain the HTTP status
