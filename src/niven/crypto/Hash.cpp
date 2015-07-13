@@ -41,7 +41,8 @@ namespace niven { namespace crypto
 		}
 
 		auto size		= gcry_md_get_algo_dlen(algo);
-		auto combined	= salt + data;
+		auto combined	= base64::decode(salt);
+		combined.insert(combined.end(), data.begin(), data.end());
 
 		vector<byte> result(size);
 
