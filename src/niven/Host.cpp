@@ -9,7 +9,10 @@ namespace niven
 	NivenHost::NivenHost()
 	{
 		this->modules = Type<Module>::CreateAll();
+
 		this->router.Initialise(this->modules);
+
+		for (auto &m : this->modules) m.second->AddDependencies(*this);
 	}
 
 
