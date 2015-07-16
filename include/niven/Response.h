@@ -49,6 +49,10 @@ namespace niven
 		Response(const char *data, const Http &status = Http::OK)			: status(status), data(data) {}
 		Response(const std::string &data, const Http &status = Http::OK)	: status(status), data(data) {}
 
+		// Binary data
+		Response(const std::vector<byte> &data, const Http &status = Http::OK)
+			: status(status), data((char *)data.data(), data.size()) {}
+
 		// A null response results in an undefined status code allowing other actions to be performed.
 		Response(std::nullptr_t null) : status(Http::None), headers() {}
 
