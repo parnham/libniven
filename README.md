@@ -30,7 +30,7 @@ Features
 
 ### Routes
 
-Routes can contain literal segements as well as named captures.
+Routes can contain literal segments as well as named captures.
 
 ```cpp
 Get["/person/{id}"] = [](auto &c) {
@@ -57,7 +57,7 @@ headers and cookies using a fluent syntax.
 ```cpp
 Get["/"] = [](auto) {
 	return Response()
-		.withHeader("Custom", "The moon's a balloon")
+		.WithHeader("Content-Type", "application/json")
 		.WithCookie({ "niven-test", "chocolate chip", DateTime::Now().AddSeconds(30) });
 };
 ```
