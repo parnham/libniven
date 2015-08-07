@@ -16,11 +16,11 @@ solution "examples"
 	project "example"
 		kind		"ConsoleApp"
 		targetdir	"bin"
-		links		{ "emergent", "niven", "hiredis", "pthread"  }
+		links		{ "niven", "hiredis", "pthread"  }
 		files		{ "example.cpp" }
 
 	project "ssl"
 		kind		"ConsoleApp"
 		targetdir	"bin"
-		links		{ "emergent", "niven", "pthread"  }
+		links		{ "niven", "pthread"  }
 		files		{ "ssl.cpp" }

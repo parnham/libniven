@@ -135,10 +135,8 @@ Building on Ubuntu
 $ sudo apt-get install libmicrohttpd-dev libgcrypt20-dev
 ```
 
-Follow the instructions for building libemergent and ensure that
-the headers and binaries can be found on the standard paths (for example
-```/usr/local/include``` and ```/usr/local/lib```). The same applies
-to the libentity headers.
+Ensure that the headers for libemergent and libentity can be found on the standard
+paths (for example ```/usr/local/include```).
 
 ```bash
 $ premake5 gmake
@@ -152,5 +150,4 @@ $ premake5 gmake
 $ make
 ```
 
-When building an application with niven you must link against libemergent,
-libniven and pthread.
+When building an application with niven you must link against libniven and pthread.

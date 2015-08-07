@@ -1,6 +1,6 @@
 #pragma once
 
-#include <emergent/Logger.h>
+#include <emergent/logger/Logger.hpp>
 #include <niven/Configuration.h>
 #include <niven/Module.h>
 #include <niven/Http.h>

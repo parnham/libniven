@@ -17,17 +17,11 @@ solution "niven"
 		targetname			"niven"
 		-- defines				"NIVEN_USE_H2O"
 		-- links				{ "h2o", "uv", "ssl", "crypto" }
-		links				{ "emergent", "microhttpd", "gcrypt" }
+		links				{ "microhttpd", "gcrypt" }
 		linkoptions 		{ "-Wl,-soname,libniven.so.0" }
 		files				{ "include/niven/**h", "src/niven/**.cpp" }
 		configuration "linux"
 			postbuildcommands	"./strip lib/libniven.so"
-
-	-- project "example"
-	-- 	kind		"ConsoleApp"
-	-- 	targetdir	"bin"
-	-- 	links		{ "emergent", "libniven", "hiredis", "pthread"  }
-	-- 	files		{ "src/examples/example.cpp" }
 
 	project "test"
 		kind				"ConsoleApp"

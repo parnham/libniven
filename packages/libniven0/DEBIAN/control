@@ -6,7 +6,7 @@ Architecture: amd64
 Maintainer: Dan Parnham <dan@emergent-design.co.uk>
 Installed-Size: 2200
 Pre-Depends: multiarch-support
-Depends: libc6, libemergent0, libmicrohttpd10
+Depends: libc6, libmicrohttpd10
 Description: C++14 REST services made easy
  Allows simple construction of self-hosted REST
  services using lambdas and fluent configuration.

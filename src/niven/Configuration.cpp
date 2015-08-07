@@ -1,6 +1,6 @@
 #include "niven/Configuration.h"
-#include <emergent/Emergent.h>
-#include <emergent/Logger.h>
+#include <emergent/Emergent.hpp>
+#include <emergent/logger/Logger.hpp>
 
 
 using namespace std;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <emergent/Path.h>
+#include <emergent/Path.hpp>
 
 
 namespace niven

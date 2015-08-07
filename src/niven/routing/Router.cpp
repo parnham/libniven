@@ -1,5 +1,5 @@
 #include "niven/routing/Router.h"
-#include <emergent/Logger.h>
+#include <emergent/logger/Logger.hpp>
 #include <algorithm>
 
 using namespace std;

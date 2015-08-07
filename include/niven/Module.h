@@ -1,6 +1,6 @@
 #pragma once
 
-#include <emergent/Type.h>
+#include <emergent/Type.hpp>
 #include <niven/Request.h>
 #include <niven/Pipeline.h>
 #include <niven/routing/Route.h>

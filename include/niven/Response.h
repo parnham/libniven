@@ -6,7 +6,7 @@
 #include <niven/Cookie.h>
 #include <entity/entity.hpp>
 
-#include <emergent/Path.h>
+#include <emergent/Path.hpp>
 #include <microhttpd.h>
 
 

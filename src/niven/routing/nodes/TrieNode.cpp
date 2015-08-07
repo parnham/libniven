@@ -2,7 +2,7 @@
 #include "niven/routing/nodes/LiteralNode.h"
 #include "niven/routing/nodes/CaptureNode.h"
 #include "niven/routing/nodes/GreedyNode.h"
-#include <emergent/Logger.h>
+#include <emergent/logger/Logger.hpp>
 #include <algorithm>
 
 using namespace std;

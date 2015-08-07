@@ -2,7 +2,7 @@
 
 #include <gcrypt.h>
 #include <iomanip>
-#include <emergent/Logger.h>
+// #include <emergent/logger/Logger.hpp>
 #include <emergent/Uuid.hpp>
 #include <entity/utilities.hpp>
 

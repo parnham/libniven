@@ -1,6 +1,6 @@
 #include "niven/Response.h"
 #include "niven/Mime.h"
-#include <emergent/Emergent.h>
+#include <emergent/Emergent.hpp>
 #include <entity/json.hpp>
 
 using namespace std;
