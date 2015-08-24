@@ -39,7 +39,7 @@ namespace niven
 		{
 			this->sslKey = String::load(key);
 		}
-		else FLOG(error, "Path to key file does not exist: %s", key);
+		else Log::Error("Path to key file does not exist: %s", key);
 
 		return *this;
 	}
@@ -51,7 +51,7 @@ namespace niven
 		{
 			this->sslCertificate = String::load(certificate);
 		}
-		else FLOG(error, "Path to certificate file does not exist: %s", certificate);
+		else Log::Error("Path to certificate file does not exist: %s", certificate);
 
 		return *this;
 	}

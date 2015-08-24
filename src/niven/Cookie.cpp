@@ -1,7 +1,8 @@
 #include "niven/Cookie.h"
-
+#include <emergent/String.hpp>
 
 using namespace std;
+using namespace emergent;
 
 
 namespace niven
@@ -9,7 +10,7 @@ namespace niven
 	// Build the cookie string.
 	string Cookie::Build()
 	{
-		auto result = tfm::format("%s=%s; Path=%s", this->name, this->value, this->path);
+		auto result = String::format("%s=%s; Path=%s", this->name, this->value, this->path);
 
 		if (this->expires.timestamp >= 0)	result += "; Expires=" + this->CookieTime();
 		if (this->domain.size())			result += "; Domain=" + this->domain;
@@ -29,7 +30,7 @@ namespace niven
 		tm t;
 		gmtime_r(&this->expires.timestamp, &t);
 
-		return tfm::format(
+		return String::format(
 			"%s, %02d-%s-%04d %02d:%02d:%02d GMT",
 			DAYS[t.tm_wday], t.tm_mday, MONTHS[t.tm_mon], 1900+t.tm_year,
 			t.tm_hour, t.tm_min, t.tm_sec

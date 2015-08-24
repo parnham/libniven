@@ -24,9 +24,9 @@ namespace niven
 			if (!this->route || route->score > this->route->score)
 			{
 				this->route = route;
-				FLOG(info, "Added %s: %s at %d with a score of %d", route->method, route->path, index, route->score);
+				Log::Info("Added %s: %s at %d with a score of %d", route->method, route->path, index, route->score);
 			}
-			else FLOG(info, "Ignored %s: %s because a route already exists at this node", route->method, route->path);
+			else Log::Info("Ignored %s: %s because a route already exists at this node", route->method, route->path);
 		}
 		else
 		{

@@ -66,7 +66,7 @@ namespace niven
 			auto log = [](void *p, const char *s, va_list a) {
 				char buffer[1024];
 				vsnprintf(buffer, 1024, s, a);
-				LOG(error, buffer);
+				Log::Error(buffer);
 			};
 
 			if (this->ssl)

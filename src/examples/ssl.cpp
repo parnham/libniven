@@ -60,8 +60,8 @@ condition_variable condition;
 int main(int argc, char **argv)
 {
 	// Enable logging to stdout
-	logger::instance().add(new sink::console());
-	logger::instance().set_verbosity("info");
+	Log::Initialise({ make_unique<logger::Console>() });
+	Log::Verbosity("info");
 
 	// Catch the interrupt/quit signals and handle appropriately
 	signal(SIGINT,	[](int) { run = false; condition.notify_one(); });
