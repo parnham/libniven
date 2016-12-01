@@ -5,6 +5,7 @@
 #include <niven/Http.h>
 #include <niven/Cookie.h>
 #include <entity/entity.hpp>
+#include <entity/json.hpp>
 
 #include <emergent/Path.hpp>
 #include <microhttpd.h>
@@ -35,6 +36,15 @@ namespace niven
 
 		// A vector of tree will be serialised as a top-level JSON array.
 		Response(const std::vector<ent::tree> &data);
+
+		// A vector of entities will be serialised as a top-level JSON array
+		template <typename T> Response(const std::vector<T> &data)
+		{
+			this->headers["Content-Type"]	= "application/json";
+			this->data						= ent::entity::encode<ent::json>(
+				const_cast<std::vector<T>&>(data)
+			);
+		}
 
 		// A path response will return the file specified (if it exists).
 		// If the file cannot be found or the mimetype cannot be determined

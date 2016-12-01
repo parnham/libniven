@@ -4,7 +4,7 @@
 #include <entity/json.hpp>
 #include <niven/Request.h>
 #include <niven/Dependencies.h>
-
+// #include <experimental/any>
 
 namespace niven
 {
@@ -49,6 +49,10 @@ namespace niven
 			// you to treat the context as a map.
 			std::string operator[](const std::string key) { return this->captures[key].as_string(); }
 
+			// Storage for any per-request data - for example a "before" pipeline could
+			// retrieve the user from an authentication module and then insert it into
+			// the context here so that any module route can make use of this information.
+			// std::map<std::string, std::experimental::any> data;
 
 		private:
 
