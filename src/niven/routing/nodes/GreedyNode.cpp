@@ -1,5 +1,6 @@
 #include "niven/routing/nodes/GreedyNode.h"
 #include <algorithm>
+#include <numeric>
 
 using namespace std;
 using namespace emg;
