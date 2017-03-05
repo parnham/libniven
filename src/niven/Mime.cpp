@@ -15,5 +15,7 @@ namespace niven
 		{ "html", 	"text/html" },
 		{ "txt",	"text/plain" },
 		{ "xml", 	"text/xml" },
+
+		{ "gz",		"application/gzip" }
 	};
 }
