@@ -10,7 +10,7 @@ solution "niven"
 	excludes		{ "**.bak", "**~" }
 
 	configuration "linux"
-		flags	"Symbols"
+		symbols	"On"
 
 	project "libniven"
 		kind				"SharedLib"

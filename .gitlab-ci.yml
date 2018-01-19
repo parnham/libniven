@@ -1,0 +1,35 @@
+#Test locally with `gitlab-runner exec docker --docker-pull-policy=never build-check`
+
+stages:
+  - build
+
+build-check:
+  image: emergent:xenial
+  stage: build
+  before_script:
+    - dpkg -i
+      /packages/xenial/oss/libemergent-dev.deb
+      /packages/xenial/oss/libentity-dev.deb
+  script:
+    - premake5 gmake
+    - make -j4
+
+package-xenial:
+  image: emergent:xenial
+  stage: build
+  only: tags
+  before_script:
+    - dpkg -i
+      /packages/xenial/oss/libemergent-dev.deb
+      /packages/xenial/oss/libentity-dev.deb
+  script:
+    - premake5 gmake
+    - make -j4
+    - cd packages
+    - ./build
+    - mkdir -p /packages/xenial/oss/
+    - cp libniven-dev_*.deb /packages/xenial/oss/libniven-dev.deb
+    - cp libniven0_*.deb /packages/xenial/oss/libniven0.deb
+  artifacts:
+    paths:
+      - packages/*.deb

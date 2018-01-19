@@ -11,21 +11,21 @@ namespace niven
 {
 	Response::Response(const entity &data)
 	{
-		this->headers["Content-Type"]	= "application/json";
+		this->headers["Content-Type"]	= "application/json; charset=utf-8";
 		this->data						= entity::encode<json>(const_cast<entity&>(data));
 	}
 
 
 	Response::Response(const tree &data)
 	{
-		this->headers["Content-Type"]	= "application/json";
+		this->headers["Content-Type"]	= "application/json; charset=utf-8";
 		this->data						= tree::encode<json>(data);
 	}
 
 
 	Response::Response(const vector<tree> &data)
 	{
-		this->headers["Content-Type"]	= "application/json";
+		this->headers["Content-Type"]	= "application/json; charset=utf-8";
 		this->data						= tree::encode<json>(data);
 	}
 
