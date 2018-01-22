@@ -1,11 +1,11 @@
-#Test locally with `gitlab-runner exec docker --docker-pull-policy=never build-check`
-
 stages:
   - build
 
 build-check:
   image: emergent:xenial
   stage: build
+  only:
+    - master
   before_script:
     - dpkg -i
       /packages/xenial/oss/libemergent-dev.deb
@@ -17,7 +17,8 @@ build-check:
 package-xenial:
   image: emergent:xenial
   stage: build
-  only: tags
+  only:
+    - tags
   before_script:
     - dpkg -i
       /packages/xenial/oss/libemergent-dev.deb

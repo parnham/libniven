@@ -1,3 +1,11 @@
+libniven0 (0.0.3) unstable; urgency=medium
+
+  * Uses newer libemergent logger.
+  * Can now return a std::vector of entities which will be encoded to JSON.
+  * Default encoding for JSON responses now UTF8.
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Mon, 22 Jan 2018 15:37:56 +0000
+
 libniven0 (0.0.2) unstable; urgency=medium
 
   * Updated to build against the new header-only libemergent.
