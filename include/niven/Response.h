@@ -60,7 +60,7 @@ namespace niven
 		Response(const std::string &data, const Http &status = Http::OK)	: status(status), data(data) {}
 
 		// Binary data
-		Response(const std::vector<byte> &data, const Http &status = Http::OK)
+		Response(const std::vector<uint8_t> &data, const Http &status = Http::OK)
 			: status(status), data((char *)data.data(), data.size()) {}
 
 		// A null response results in an undefined status code allowing other actions to be performed.

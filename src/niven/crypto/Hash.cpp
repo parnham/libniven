@@ -15,7 +15,7 @@ namespace niven { namespace crypto
 {
 	string Hash::Salt()
 	{
-		vector<byte> result(8);
+		vector<uint8_t> result(8);
 
 		auto a	= uuid().a;
 		auto *p	= result.data() + 7;
@@ -26,7 +26,7 @@ namespace niven { namespace crypto
 	}
 
 
-	const vector<byte> Hash::AsBinary(const string &data, const string &salt, Algorithm algorithm)
+	const vector<uint8_t> Hash::AsBinary(const string &data, const string &salt, Algorithm algorithm)
 	{
 		int algo = GCRY_MD_SHA256;
 

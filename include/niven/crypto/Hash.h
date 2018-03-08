@@ -26,7 +26,7 @@ namespace niven { namespace crypto
 			static std::string Salt();
 
 			// Hash the supplied data and return as a binary blob.
-			static const std::vector<byte> AsBinary(const std::string &data, const std::string &salt, Algorithm algorithm);
+			static const std::vector<uint8_t> AsBinary(const std::string &data, const std::string &salt, Algorithm algorithm);
 
 			// Hash the supplied data and return as a hex string.
 			static const std::string AsHex(const std::string &data, const std::string &salt, Algorithm algorithm);

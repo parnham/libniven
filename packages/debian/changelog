@@ -1,3 +1,9 @@
+libniven0 (0.0.4) unstable; urgency=medium
+
+  * Changed byte to uint8_t to avoid future conflicts with C++17.
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Thu, 08 Mar 2018 14:59:11 +0000
+
 libniven0 (0.0.3) unstable; urgency=medium
 
   * Uses newer libemergent logger.
