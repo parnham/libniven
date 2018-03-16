@@ -19,12 +19,14 @@ namespace niven
 
 			// Helper function to bind the request to an entity. It assumes that the body
 			// of the request contains JSON.
-			template <class T, class = typename std::enable_if<std::is_base_of<ent::entity, T>::value>::type> T Bind()
+			// template <class T, class = typename std::enable_if<std::is_base_of<ent::entity, T>::value>::type> T Bind()
+			template <class T> T Bind()
 			{
 				// Check headers and type
 				// if (this->request.headers["Content-Type"] == "application/json")
 				// {
-					return ent::entity::decode<ent::json, T>(this->request.body);
+					// return ent::entity::decode<ent::json, T>(this->request.body);
+					return ent::decode<ent::json, T>(this->request.body);
 				// }
 
 				// return T();

@@ -29,7 +29,7 @@ namespace niven
 		Response() {}
 
 		// An entity response will be serialised to JSON.
-		Response(const ent::entity &data);
+		// Response(const ent::entity &data);
 
 		// A tree response will also be serialised to JSON.
 		Response(const ent::tree &data);
@@ -37,14 +37,23 @@ namespace niven
 		// A vector of tree will be serialised as a top-level JSON array.
 		Response(const std::vector<ent::tree> &data);
 
+
+		template <typename T, typename = ent::if_entity<T>> Response(const T &data)
+		{
+			this->headers["Content-Type"]	= "application/json; charset=utf-8";
+			this->data						= ent::encode<ent::json>(const_cast<T&>(data));
+		}
+
+
 		// A vector of entities will be serialised as a top-level JSON array
 		template <typename T> Response(const std::vector<T> &data)
 		{
 			this->headers["Content-Type"]	= "application/json";
-			this->data						= ent::entity::encode<ent::json>(
+			this->data						= ent::encode<ent::json>(
 				const_cast<std::vector<T>&>(data)
 			);
 		}
+
 
 		// A path response will return the file specified (if it exists).
 		// If the file cannot be found or the mimetype cannot be determined
