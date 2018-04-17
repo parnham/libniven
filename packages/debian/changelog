@@ -1,3 +1,12 @@
+libniven0 (0.0.5) unstable; urgency=medium
+
+  * Updated to work with new libentity.
+  * Added missing virtual destructors.
+  * Package dependencies determined automatically.
+  * Added bionic build to CI.
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Tue, 17 Apr 2018 22:58:52 +0100
+
 libniven0 (0.0.4) unstable; urgency=medium
 
   * Changed byte to uint8_t to avoid future conflicts with C++17.
