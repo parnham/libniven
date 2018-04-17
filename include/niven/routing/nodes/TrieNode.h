@@ -13,6 +13,8 @@ namespace niven
 
 			TrieNode(std::string segment, int score) : score(score), routeSegment(segment) {}
 
+			virtual ~TrieNode() {}
+
 			// Add a route to this node (will generate child nodes where necessary).
 			void Add(std::shared_ptr<Route> route, int index = 0, int score = 0);
 

@@ -36,6 +36,27 @@ package-xenial:
     paths:
       - packages/*.deb
 
+package-bionic:
+  image: emergent:bionic
+  stage: build
+  only:
+    - tags
+  before_script:
+    - dpkg -i
+      /packages/bionic/oss/libemergent-dev.deb
+      /packages/bionic/oss/libentity-dev.deb
+  script:
+    - premake5 gmake
+    - make -j4 libniven
+    - cd packages
+    - ./build
+    - mkdir -p /packages/bionic/oss/
+    - cp libniven-dev_*.deb /packages/bionic/oss/libniven-dev.deb
+    - cp libniven0_*.deb /packages/bionic/oss/libniven0.deb
+  # artifacts:
+  #   paths:
+  #     - packages/*.deb
+
 deploy-packages:
   image: emergent:deploy
   stage: deploy
