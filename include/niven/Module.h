@@ -25,6 +25,8 @@ namespace niven
 			// routes within that module will then begin with that path.
 			Module(std::string path = "") :  path(path) {}
 
+			virtual ~Module() {}
+
 
 			// Override this to include or replace dependencies during host
 			// instantiation. Useful for modules that are dynamically loaded
