@@ -1,5 +1,5 @@
 Package: libniven-dev
-Version: 0.0.0
+Version: 0.0.4
 Section: libdevel
 Priority: optional
 Architecture: amd64
