@@ -13,6 +13,18 @@ using namespace std;
 
 namespace niven { namespace crypto
 {
+	bool Hash::Initialise()
+	{
+		if (!gcry_check_version(GCRYPT_VERSION))
+		{
+			return false;
+		}
+
+		gcry_control(GCRYCTL_INITIALIZATION_FINISHED, 0);
+		return true;
+	}
+
+
 	string Hash::Salt()
 	{
 		vector<uint8_t> result(8);
@@ -71,3 +83,5 @@ namespace niven { namespace crypto
 		return base64::encode(AsBinary(data, salt, algorithm));
 	}
 }}
+
+

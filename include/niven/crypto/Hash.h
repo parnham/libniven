@@ -22,6 +22,10 @@ namespace niven { namespace crypto
 	{
 		public:
 
+			// Should be called before any other functions to ensure
+			// that the underlying gcrypt library is initialised.
+			static bool Initialise();
+
 			// Generate a random salt for use when hashing.
 			static std::string Salt();
 
