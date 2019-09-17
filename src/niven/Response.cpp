@@ -30,11 +30,11 @@ namespace niven
 	}
 
 
-	Response::Response(const Path &path)
+	Response::Response(const fs::path &path)
 	{
 		auto extension = path.extension();
 
-		if (path.exists() && Mime::ByExtension.count(extension))
+		if (fs::exists(path) && Mime::ByExtension.count(extension))
 		{
 			this->headers["Content-Type"]	= Mime::ByExtension.at(extension);
 			this->data 						= emergent::String::load(path);
@@ -43,7 +43,7 @@ namespace niven
 	}
 
 
-	Response &Response::WithHeader(string key, string value)
+	Response &Response::WithHeader(const string &key, const string &value)
 	{
 		this->headers[key] = value;
 		return *this;

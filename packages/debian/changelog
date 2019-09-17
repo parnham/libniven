@@ -1,3 +1,12 @@
+libniven0 (0.0.6) unstable; urgency=medium
+
+  * Replaced deprecated emergent::Path with std::filesystem.
+  * Updated example to work with new libentity.
+  * Added ability to return a std::map in a Response.
+  * Added some mime types.
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Tue, 17 Sep 2019 22:14:20 +0100
+
 libniven0 (0.0.5) unstable; urgency=medium
 
   * Updated to work with new libentity.

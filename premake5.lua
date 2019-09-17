@@ -6,7 +6,7 @@ solution "niven"
 	includedirs		"include"
 	libdirs			"lib"
 	toolset			"clang"
-	buildoptions	{ "-Wall", "-Wno-sign-compare", "-std=c++14", "-O3", "-fPIC", "-D_FORTIFY_SOURCE=2" }
+	buildoptions	{ "-Wall", "-Wno-sign-compare", "-std=c++17", "-O3", "-fPIC", "-D_FORTIFY_SOURCE=2" }
 	excludes		{ "**.bak", "**~" }
 
 	configuration "linux"
@@ -17,7 +17,7 @@ solution "niven"
 		targetname			"niven"
 		-- defines				"NIVEN_USE_H2O"
 		-- links				{ "h2o", "uv", "ssl", "crypto" }
-		links				{ "microhttpd", "gcrypt" }
+		links				{ "microhttpd", "gcrypt", "stdc++fs" }
 		linkoptions 		{ "-Wl,-soname,libniven.so.0" }
 		files				{ "include/niven/**h", "src/niven/**.cpp" }
 		configuration "linux"

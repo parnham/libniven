@@ -7,6 +7,6 @@ Maintainer: Dan Parnham <dan@emergent-design.co.uk>
 Installed-Size: 2360
 Pre-Depends: multiarch-support
 Depends: libc6, libgcc1, libgcrypt20, libmicrohttpd10, libstdc++6
-Description: C++14 REST services made easy
+Description: C++17 REST services made easy
  Allows simple construction of self-hosted REST
  services using lambdas and fluent configuration.

@@ -3,19 +3,31 @@
 namespace niven
 {
 	const std::map<std::string, std::string> Mime::ByExtension = {
-		{ "json",	"application/json" },
-		{ "js",		"application/javascript" },
+		// JS
+		{ ".json",	"application/json" },
+		{ ".js",	"application/javascript" },
 
-		{ "gif",	"image/gif" },
-		{ "jpg",	"image/jpeg" },
-		{ "jpeg",	"image/jpeg" },
-		{ "png",	"image/png" },
+		// Images
+		{ ".gif",	"image/gif" },
+		{ ".jpg",	"image/jpeg" },
+		{ ".jpeg",	"image/jpeg" },
+		{ ".png",	"image/png" },
+		{ ".svg",	"image/svg+xml"},
 
-		{ "css", 	"text/css" },
-		{ "html", 	"text/html" },
-		{ "txt",	"text/plain" },
-		{ "xml", 	"text/xml" },
+		// Text
+		{ ".css", 	"text/css" },
+		{ ".html", 	"text/html" },
+		{ ".txt",	"text/plain" },
+		{ ".xml", 	"text/xml" },
 
-		{ "gz",		"application/gzip" }
+		// Fonts
+		{ ".ttf",	"font/ttf" },
+		{ ".otf",	"font/otf" },
+		{ ".woff",	"font/woff" },
+		{ ".woff2",	"font/woff2" },
+
+		{ ".gz",	"application/gzip" }
 	};
 }
+
+

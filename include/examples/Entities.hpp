@@ -3,20 +3,17 @@
 #include <entity/tree.hpp>
 
 using namespace niven;
-using namespace ent;
+
 
 
 // An example entity. Please refer to https://github.com/emergent-design/libentity
 // for further information.
-struct Test : entity
+struct Test
 {
-	string name			= "Test";
-	vector<int> list	= { 1, 2, 3 };
+	std::string name			= "Test";
+	std::vector<int> list	= { 1, 2, 3 };
 
-	mapping describe()
-	{
-		return { eref(name), eref(list) };
-	}
+	emap(eref(name), eref(list))
 };
 
 
@@ -37,9 +34,9 @@ class EntitiesModule : public Module
 			// deserialisation. Simply returning a tree will generate an appropriate
 			// "application/json" response.
 			Get["/tree"] = [](auto) {
-				return tree {
+				return ent::tree {
 					{ "name", "Test" },
-					{ "list", vector<tree> { 1, 2, 3 }}
+					{ "list", std::vector<ent::tree> { 1, 2, 3 }}
 				};
 			};
 

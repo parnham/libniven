@@ -6,14 +6,23 @@
 #include <niven/Cookie.h>
 #include <entity/entity.hpp>
 #include <entity/json.hpp>
-
-#include <emergent/Path.hpp>
 #include <microhttpd.h>
+
+#if __has_include(<filesystem>)
+	#include <filesystem>
+#elif __has_include(<experimental/filesystem>)
+	#include <experimental/filesystem>
+#endif
 
 
 namespace niven
 {
-	using emergent::Path;
+	#ifdef __cpp_lib_filesystem
+		namespace fs = std::filesystem;
+	#elif __cpp_lib_experimental_filesystem
+		namespace fs = std::experimental::filesystem;
+	#endif
+
 
 	// Allows for simple construction of responses that can be returned from actions.
 	// It contains a selection of constructor overloads which let you return anything
@@ -45,10 +54,19 @@ namespace niven
 		}
 
 
+		template <typename T> Response(const std::map<std::string, T> &data)
+		{
+			this->headers["Content-Type"]	= "application/json; charset=utf-8";
+			this->data						= ent::encode<ent::json>(
+				const_cast<std::map<std::string, T>&>(data)
+			);
+		}
+
+
 		// A vector of entities will be serialised as a top-level JSON array
 		template <typename T> Response(const std::vector<T> &data)
 		{
-			this->headers["Content-Type"]	= "application/json";
+			this->headers["Content-Type"]	= "application/json; charset=utf-8";
 			this->data						= ent::encode<ent::json>(
 				const_cast<std::vector<T>&>(data)
 			);
@@ -59,7 +77,7 @@ namespace niven
 		// If the file cannot be found or the mimetype cannot be determined
 		// from the extension the response will only contain the HTTP status
 		// code "NotFound".
-		Response(const Path &path);
+		Response(const fs::path &path);
 
 		// A response can simply be an HTTP status code.
 		Response(const Http &status) : status(status) {}
@@ -76,7 +94,7 @@ namespace niven
 		Response(std::nullptr_t null) : status(Http::None), headers() {}
 
 		// Fluent helper function to add a response header.
-		Response &WithHeader(std::string key, std::string value);
+		Response &WithHeader(const std::string &key, const std::string &value);
 
 		// Fluent helper function to add a response cookie.
 		Response &WithCookie(const Cookie &cookie);

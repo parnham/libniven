@@ -12,13 +12,13 @@ class FilesModule : public Module
 			// By returning a Path structure as the response, niven will
 			// automatically attempt to load the file in question.
 			Get["/{name*}"] = [](auto &c) {
-				return Path(c["name"]);
+				return fs::path(c["name"]);
 			};
 
 			// Adding a standard "Content-Disposition" header allows us
 			// to inform the browser to download the file.
 			Get["download/{name*}"] = [](auto &c) {
-				return Response(Path(c["name"])).WithHeader(
+				return Response(fs::path(c["name"])).WithHeader(
 					"Content-Disposition", "attachment; filename=" + c["name"]
 				);
 			};

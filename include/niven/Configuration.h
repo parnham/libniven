@@ -1,11 +1,22 @@
 #pragma once
 
 #include <vector>
-#include <emergent/Path.hpp>
+
+#if __has_include(<filesystem>)
+	#include <filesystem>
+#elif __has_include(<experimental/filesystem>)
+	#include <experimental/filesystem>
+#endif
 
 
 namespace niven
 {
+	#ifdef __cpp_lib_filesystem
+		namespace fs = std::filesystem;
+	#elif __cpp_lib_experimental_filesystem
+		namespace fs = std::experimental::filesystem;
+	#endif
+
 	// Fluent configuration for NivenHost
 	class Configuration
 	{
@@ -22,10 +33,10 @@ namespace niven
 			Configuration &EnableSSL(const std::string &key = "", const std::string &certificate = "");
 
 			// Load the SSL key from file at the supplied path.
-			Configuration &WithKey(const emergent::Path path);
+			Configuration &WithKey(const fs::path &path);
 
 			// Load the SSL certificate from file at the supplied path.
-			Configuration &WithCertificate(const emergent::Path path);
+			Configuration &WithCertificate(const fs::path &path);
 
 		protected:
 

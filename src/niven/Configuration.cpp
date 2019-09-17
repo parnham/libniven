@@ -33,9 +33,9 @@ namespace niven
 	}
 
 
-	Configuration &Configuration::WithKey(const Path key)
+	Configuration &Configuration::WithKey(const fs::path &key)
 	{
-		if (key.exists())
+		if (fs::exists(key))
 		{
 			this->sslKey = String::load(key);
 		}
@@ -45,9 +45,9 @@ namespace niven
 	}
 
 
-	Configuration &Configuration::WithCertificate(const Path certificate)
+	Configuration &Configuration::WithCertificate(const fs::path &certificate)
 	{
-		if (certificate.exists())
+		if (fs::exists(certificate))
 		{
 			this->sslCertificate = String::load(certificate);
 		}
