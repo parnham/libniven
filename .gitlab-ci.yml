@@ -3,38 +3,38 @@ stages:
   - deploy
 
 build-check:
-  image: emergent:xenial
+  image: emergent:bionic
   stage: build
   only:
     - master
   before_script:
     - dpkg -i
-      /packages/xenial/oss/libemergent-dev.deb
-      /packages/xenial/oss/libentity-dev.deb
+      /packages/bionic/oss/libemergent-dev.deb
+      /packages/bionic/oss/libentity-dev.deb
   script:
     - premake5 gmake
     - make -j4
 
-package-xenial:
-  image: emergent:xenial
-  stage: build
-  only:
-    - tags
-  before_script:
-    - dpkg -i
-      /packages/xenial/oss/libemergent-dev.deb
-      /packages/xenial/oss/libentity-dev.deb
-  script:
-    - premake5 gmake
-    - make -j4 libniven
-    - cd packages
-    - ./build
-    - mkdir -p /packages/xenial/oss/
-    - cp libniven-dev_*.deb /packages/xenial/oss/libniven-dev.deb
-    - cp libniven0_*.deb /packages/xenial/oss/libniven0.deb
-  artifacts:
-    paths:
-      - packages/*.deb
+# package-xenial:
+#   image: emergent:xenial
+#   stage: build
+#   only:
+#     - tags
+#   before_script:
+#     - dpkg -i
+#       /packages/xenial/oss/libemergent-dev.deb
+#       /packages/xenial/oss/libentity-dev.deb
+#   script:
+#     - premake5 gmake
+#     - make -j4 libniven
+#     - cd packages
+#     - ./build
+#     - mkdir -p /packages/xenial/oss/
+#     - cp libniven-dev_*.deb /packages/xenial/oss/libniven-dev.deb
+#     - cp libniven0_*.deb /packages/xenial/oss/libniven0.deb
+#   artifacts:
+#     paths:
+#       - packages/*.deb
 
 package-bionic:
   image: emergent:bionic
@@ -64,7 +64,7 @@ deploy-packages:
   only:
     - tags
   dependencies:
-    - package-xenial
+    - package-bionic
   before_script:
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
