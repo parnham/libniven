@@ -8,10 +8,10 @@
 
 using namespace emergent;
 using namespace ent;
-using namespace std;
+// using namespace std;
 
 
-namespace niven { namespace crypto
+namespace niven::crypto
 {
 	bool Hash::Initialise()
 	{
@@ -27,7 +27,7 @@ namespace niven { namespace crypto
 
 	string Hash::Salt()
 	{
-		vector<uint8_t> result(8);
+		std::vector<uint8_t> result(8);
 
 		auto a	= uuid().a;
 		auto *p	= result.data() + 7;
@@ -38,7 +38,7 @@ namespace niven { namespace crypto
 	}
 
 
-	const vector<uint8_t> Hash::AsBinary(const string &data, const string &salt, Algorithm algorithm)
+	const std::vector<uint8_t> Hash::AsBinary(const string &data, const string &salt, Algorithm algorithm)
 	{
 		int algo = GCRY_MD_SHA256;
 
@@ -56,7 +56,7 @@ namespace niven { namespace crypto
 		auto combined	= base64::decode(salt);
 		combined.insert(combined.end(), data.begin(), data.end());
 
-		vector<byte> result(size);
+		std::vector<byte> result(size);
 
 		gcry_md_hash_buffer(algo, (void *)result.data(), combined.data(), combined.size());
 
@@ -66,12 +66,12 @@ namespace niven { namespace crypto
 
 	const string Hash::AsHex(const string &data, const string &salt, Algorithm algorithm)
 	{
-		stringstream result;
-		result << hex << setfill('0');
+		std::stringstream result;
+		result << std::hex << std::setfill('0');
 
 		for (auto &c : AsBinary(data, salt, algorithm))
 		{
-			result << setw(2) << (int)c;
+			result << std::setw(2) << (int)c;
 		}
 
 		return result.str();
@@ -82,6 +82,6 @@ namespace niven { namespace crypto
 	{
 		return base64::encode(AsBinary(data, salt, algorithm));
 	}
-}}
+}
 
 
