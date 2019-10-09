@@ -53,9 +53,9 @@ package-bionic:
     - mkdir -p /packages/bionic/oss/
     - cp libniven-dev_*.deb /packages/bionic/oss/libniven-dev.deb
     - cp libniven0_*.deb /packages/bionic/oss/libniven0.deb
-  # artifacts:
-  #   paths:
-  #     - packages/*.deb
+  artifacts:
+    paths:
+      - packages/*.deb
 
 deploy-packages:
   image: emergent:deploy
