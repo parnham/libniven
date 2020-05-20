@@ -1,3 +1,9 @@
+libniven0 (0.0.8) unstable; urgency=medium
+
+  * Updated libentity
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Wed, 20 May 2020 22:18:22 +0100
+
 libniven0 (0.0.7) unstable; urgency=medium
 
   * Fix mess with versioning?
