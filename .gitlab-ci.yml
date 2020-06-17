@@ -57,6 +57,27 @@ package-bionic:
     paths:
       - packages/*.deb
 
+package-focal:
+  image: emergent:focal
+  stage: build
+  only:
+    - tags
+  before_script:
+    - dpkg -i
+      /packages/bionic/oss/libemergent-dev.deb
+      /packages/bionic/oss/libentity-dev.deb
+  script:
+    - premake5 gmake
+    - make -j4 libniven
+    - cd packages
+    - ./build
+    - mkdir -p /packages/focal/oss/
+    - cp libniven-dev_*.deb /packages/focal/oss/libniven-dev.deb
+    - cp libniven0_*.deb /packages/focal/oss/libniven0.deb
+  artifacts:
+    paths:
+      - packages/*.deb
+
 deploy-packages:
   image: emergent:deploy
   stage: deploy

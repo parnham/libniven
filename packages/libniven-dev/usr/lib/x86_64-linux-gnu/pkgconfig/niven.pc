@@ -5,7 +5,7 @@ includedir=${prefix}/include
 
 Name: libniven
 Description: C++14 REST library
-Version: 0.0.4
+Version: 0.0.8
 Requires:
 Libs: -L${libdir} -lniven
 Cflags: -I${includedir}/niven
