@@ -6,7 +6,8 @@ result=""
 for dep in `readelf -d $1 2>/dev/null | grep NEEDED | awk '{print $5}' | sed "s/\[//g" | sed "s/\]//g"`; do
 
 	# Find the full path for the given dependency
-	lib=`ldd $1 | grep $dep | awk '{print $3}'`
+	# lib=`ldd $1 | grep $dep | awk '{print $3}'`
+	lib="$dep"
 
 	if [ -n "$lib" ]; then
 		# Query dpkg to find out which package the dependency belongs to and add to the result
