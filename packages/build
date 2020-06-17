@@ -16,9 +16,9 @@ ln -s lib${LIBRARY}.so.0 lib${LIBRARY}-dev/usr/lib/x86_64-linux-gnu/lib${LIBRARY
 
 sed -i "s/^Version.*/Version: $VERSION/" lib${LIBRARY}-dev/usr/lib/x86_64-linux-gnu/pkgconfig/${LIBRARY}.pc
 
-echo "Updating dependencies ..."
-DEPS=`./dependencies ../lib/lib${LIBRARY}.so`
-sed -i "s/^Depends.*/Depends: $DEPS/" lib${LIBRARY}0/DEBIAN/control
+#echo "Updating dependencies ..."
+#DEPS=`./dependencies ../lib/lib${LIBRARY}.so`
+#sed -i "s/^Depends.*/Depends: $DEPS/" lib${LIBRARY}0/DEBIAN/control
 
 for root in "lib${LIBRARY}0" "lib${LIBRARY}-dev"; do
 
