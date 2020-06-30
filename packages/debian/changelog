@@ -1,3 +1,9 @@
+libniven0 (0.0.10) unstable; urgency=medium
+
+  * Fix typo in deploy job
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Tue, 30 Jun 2020 17:19:39 +0100
+
 libniven0 (0.0.9) unstable; urgency=medium
 
   * Added support for focal and private deploy job
