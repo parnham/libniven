@@ -1,7 +1,12 @@
 #!/bin/bash
 
-VERSION="$(cat version)~$1"
+VERSION="$(cat version)"
+FULLVERSION=$VERSION
 LIBRARY="niven"
+
+if (($# == 1)); then
+	FULLVERSION="$VERSION~$1"
+fi
 
 echo "Copying files ..."
 gzip -c9 debian/changelog > changelog.gz
@@ -14,7 +19,7 @@ ln -s lib${LIBRARY}.so.${VERSION} lib${LIBRARY}0/usr/lib/x86_64-linux-gnu/lib${L
 cp -r ../include/${LIBRARY} lib${LIBRARY}-dev/usr/include/
 ln -s lib${LIBRARY}.so.0 lib${LIBRARY}-dev/usr/lib/x86_64-linux-gnu/lib${LIBRARY}.so
 
-sed -i "s/^Version.*/Version: $VERSION/" lib${LIBRARY}-dev/usr/lib/x86_64-linux-gnu/pkgconfig/${LIBRARY}.pc
+sed -i "s/^Version.*/Version: $FULLVERSION/" lib${LIBRARY}-dev/usr/lib/x86_64-linux-gnu/pkgconfig/${LIBRARY}.pc
 
 #echo "Updating dependencies ..."
 #DEPS=`./dependencies ../lib/lib${LIBRARY}.so`
@@ -27,7 +32,7 @@ for root in "lib${LIBRARY}0" "lib${LIBRARY}-dev"; do
 	echo -n "  Modifying control file ... "
 		SIZE=$(du -s $root/usr | tr -cd '[[:digit:]]')
 		sed -i "s/^Installed-Size.*/Installed-Size: $SIZE/" $root/DEBIAN/control
-		sed -i "s/^Version.*/Version: $VERSION/" $root/DEBIAN/control
+		sed -i "s/^Version.*/Version: $FULLVERSION/" $root/DEBIAN/control
 	echo "done"
 
 	echo -n "  Removing temporary files and setting permissions ... "
@@ -46,7 +51,7 @@ for root in "lib${LIBRARY}0" "lib${LIBRARY}-dev"; do
 		fakeroot dpkg-deb --build $root
 	echo "done"
 
-	mv ${root}.deb ${root}_${VERSION}_amd64.deb
+	mv ${root}.deb ${root}_${FULLVERSION}_amd64.deb
 done
 
 
