@@ -5,8 +5,8 @@ stages:
 build-check:
   image: emergent:bionic
   stage: build
-  only:
-    - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
   before_script:
     - dpkg -i
       /packages/bionic/oss/libemergent-dev.deb
@@ -15,32 +15,11 @@ build-check:
     - premake5 gmake
     - make -j4
 
-# package-xenial:
-#   image: emergent:xenial
-#   stage: build
-#   only:
-#     - tags
-#   before_script:
-#     - dpkg -i
-#       /packages/xenial/oss/libemergent-dev.deb
-#       /packages/xenial/oss/libentity-dev.deb
-#   script:
-#     - premake5 gmake
-#     - make -j4 libniven
-#     - cd packages
-#     - ./build
-#     - mkdir -p /packages/xenial/oss/
-#     - cp libniven-dev_*.deb /packages/xenial/oss/libniven-dev.deb
-#     - cp libniven0_*.deb /packages/xenial/oss/libniven0.deb
-#   artifacts:
-#     paths:
-#       - packages/*.deb
-
 package-bionic:
   image: emergent:bionic
   stage: build
-  only:
-    - tags
+  rules:
+    - if: $CI_COMMIT_TAG
   before_script:
     - dpkg -i
       /packages/bionic/oss/libemergent-dev.deb
@@ -60,12 +39,12 @@ package-bionic:
 package-focal:
   image: emergent:focal
   stage: build
-  only:
-    - tags
+  rules:
+    - if: $CI_COMMIT_TAG
   before_script:
     - dpkg -i
-      /packages/bionic/oss/libemergent-dev.deb
-      /packages/bionic/oss/libentity-dev.deb
+      /packages/focal/oss/libemergent-dev.deb
+      /packages/focal/oss/libentity-dev.deb
   script:
     - premake5 gmake
     - make -j4 libniven
@@ -82,8 +61,9 @@ deploy-packages:
   image: emergent:deploy
   stage: deploy
   when: on_success
-  only:
-    - tags
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
   dependencies:
     - package-bionic
   before_script:
@@ -96,3 +76,15 @@ deploy-packages:
   script:
     - cd packages
     - scp *.deb jenkins@downloads.emergent-design.co.uk:/srv/downloads/libniven/
+
+deploy-phi:
+  image: emergent-deploy
+  stage: deploy
+  when: on_success
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+  needs: [ package-bionic, package-focal ]
+  script:
+    - phi-deploy /packages/bionic/oss/libniven0.deb bionic oss
+    - phi-deploy /packages/focal/oss/libniven0.deb focal oss
