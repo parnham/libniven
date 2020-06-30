@@ -28,7 +28,7 @@ package-bionic:
     - premake5 gmake
     - make -j4 libniven
     - cd packages
-    - ./build
+    - ./build bionic
     - mkdir -p /packages/bionic/oss/
     - cp libniven-dev_*.deb /packages/bionic/oss/libniven-dev.deb
     - cp libniven0_*.deb /packages/bionic/oss/libniven0.deb
@@ -49,7 +49,7 @@ package-focal:
     - premake5 gmake
     - make -j4 libniven
     - cd packages
-    - ./build
+    - ./build focal
     - mkdir -p /packages/focal/oss/
     - cp libniven-dev_*.deb /packages/focal/oss/libniven-dev.deb
     - cp libniven0_*.deb /packages/focal/oss/libniven0.deb
