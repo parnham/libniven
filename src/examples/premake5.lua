@@ -6,17 +6,17 @@ solution "examples"
 	includedirs		"../../include"
 	libdirs			"../../lib"
 	toolset			"clang"
-	buildoptions	{ "-Wall", "-Wno-sign-compare", "-std=c++14", "-O3", "-fPIC", "-D_FORTIFY_SOURCE=2" }
+	buildoptions	{ "-Wall", "-Wno-sign-compare", "-std=c++17", "-O3", "-fPIC", "-D_FORTIFY_SOURCE=2" }
 	excludes		{ "**.bak", "**~" }
 
 	configuration "linux"
-		flags	"Symbols"
+		symbols	"On"
 
 
 	project "example"
 		kind		"ConsoleApp"
 		targetdir	"bin"
-		links		{ "niven", "hiredis", "pthread"  }
+		links		{ "niven", "hiredis", "pthread", "stdc++fs"  }
 		files		{ "example.cpp" }
 
 	project "ssl"

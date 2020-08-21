@@ -1,7 +1,7 @@
 libniven
 ========
 
-Niven is a C++14 library that simplifies the task of creating a REST-based API.
+Niven is a C++17 library that simplifies the task of creating a REST-based API.
 
 It is inspired by the C# [Nancy](http://nancyfx.org/) framework and uses
 similar techniques for declaring routes and responses.
@@ -46,8 +46,8 @@ As seen above you can return a string which will result in a "text/plain" conten
 type and a status of ```Http::Ok```. Other responses include:
 
 * HTTP status code, e.g. ```return Http::Unauthorized;```
-* Path which will return a file on disk if it exists,
-e.g. ```return Path(filename);```
+* A path which will return a file on disk if it exists,
+e.g. ```return std::filesystem::path(filename);```
 * Entity or tree which will be automatically serialised to JSON,
 e.g. ```return tree {{ "name", "Test" }};```
 
@@ -70,7 +70,7 @@ Niven contains a basic dependency container implementation.
 Register a singleton with the host by passing in a shared_ptr:
 
 ```cpp
-host.Register<MyType>(make_shared<MyDerivedType>());
+host.Register<MyType>(std::make_shared<MyDerivedType>());
 ```
 
 Register a concrete class type with the host to be constructed
@@ -124,7 +124,7 @@ type registration, file paths, datetime helper, logging, string helpers.
 * [libentity](https://github.com/emergent-design/libentity) -
 entity serialisation/deserialisation, trees.
 
-A modern compiler that supports C++14 such as [clang](http://clang.llvm.org/)
+A modern compiler that supports C++17 such as [clang](http://clang.llvm.org/)
 and [premake v5.0](https://premake.github.io/).
 
 
