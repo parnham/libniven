@@ -66,7 +66,10 @@ int main(int argc, char **argv)
 
 		mutex m;
 		unique_lock<mutex> lock(m);
-		while (run) condition.wait(lock);
+		while (run)
+		{
+			condition.wait(lock);
+		}
 
 		// Tell the host to stop listening.
 		host.Stop();
