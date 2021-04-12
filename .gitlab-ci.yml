@@ -71,7 +71,7 @@ deploy-packages:
     - chmod 644 ~/.ssh/known_hosts
   script:
     - cd packages
-    - scp *.deb jenkins@downloads.emergent-design.co.uk:/srv/downloads/libniven/
+    - scp *.deb gitlab@downloads.emergent-design.co.uk:/srv/downloads/libniven/
 
 deploy-phi:
   image: emergent:deploy
