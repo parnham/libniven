@@ -1,3 +1,9 @@
+libniven0 (0.0.12) unstable; urgency=medium
+
+  * Switch to earthly based build process
+
+ -- Dan <dan@dodeca>  Wed, 05 May 2021 17:59:00 +0100
+
 libniven0 (0.0.11) unstable; urgency=medium
 
   * Version number per distribution
