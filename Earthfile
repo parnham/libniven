@@ -1,4 +1,3 @@
-
 bionic:
 	FROM ubuntu:18.04
 	# configure apt to be noninteractive
@@ -23,8 +22,8 @@ image:
 deps:
 	FROM +image
 	ARG GITHUB_EMERGENT=github.com/emergent-design
-	COPY $GITHUB_EMERGENT/libentity+package/libentity-dev.deb .
-	COPY $GITHUB_EMERGENT/libemergent+package/libemergent-dev.deb .
+	COPY $GITHUB_EMERGENT/libentity:v1.1.8+package/libentity-dev.deb .
+	COPY $GITHUB_EMERGENT/libemergent:v0.0.31+package/libemergent-dev.deb .
 	RUN dpkg -i libentity-dev.deb libemergent-dev.deb
 
 build:
@@ -38,11 +37,8 @@ package:
 	RUN cd packages && ./build $DISTRIBUTION
 	SAVE ARTIFACT packages/libniven-dev_*.deb libniven-dev.deb
 	SAVE ARTIFACT packages/libniven0_*.deb libniven0.deb
-#	SAVE ARTIFACT packages/libniven-dev_*.deb libniven-dev.deb AS LOCAL build/$DISTRIBUTION/libniven-dev.deb
-#	SAVE ARTIFACT packages/libniven0_*.deb libniven0.deb AS LOCAL build/$DISTRIBUTION/libniven0.deb
+	SAVE ARTIFACT packages/libniven*.deb AS LOCAL build/
 
 all:
 	BUILD --build-arg DISTRIBUTION=bionic +package
 	BUILD --build-arg DISTRIBUTION=focal +package
-
-#deploy: ??

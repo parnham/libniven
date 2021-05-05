@@ -3,87 +3,35 @@ stages:
   - deploy
 
 build-check:
-  image: emergent:bionic
   stage: build
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
-  before_script:
-    - dpkg -i
-      /packages/bionic/oss/libemergent-dev.deb
-      /packages/bionic/oss/libentity-dev.deb
   script:
-    - premake5 gmake
-    - make -j4
+    - earthly +build
 
-package-bionic:
-  image: emergent:bionic
+package-all:
   stage: build
   rules:
     - if: $CI_COMMIT_TAG
-  before_script:
-    - dpkg -i
-      /packages/bionic/oss/libemergent-dev.deb
-      /packages/bionic/oss/libentity-dev.deb
   script:
-    - premake5 gmake
-    - make -j4 libniven
-    - cd packages
-    - ./build bionic
-    - mkdir -p /packages/bionic/oss/
-    - cp libniven-dev_*.deb /packages/bionic/oss/libniven-dev.deb
-    - cp libniven0_*.deb /packages/bionic/oss/libniven0.deb
+    - earthly +all
   artifacts:
     paths:
-      - packages/*.deb
-
-package-focal:
-  image: emergent:focal
-  stage: build
-  rules:
-    - if: $CI_COMMIT_TAG
-  before_script:
-    - dpkg -i
-      /packages/focal/oss/libemergent-dev.deb
-      /packages/focal/oss/libentity-dev.deb
-  script:
-    - premake5 gmake
-    - make -j4 libniven
-    - cd packages
-    - ./build focal
-    - mkdir -p /packages/focal/oss/
-    - cp libniven-dev_*.deb /packages/focal/oss/libniven-dev.deb
-    - cp libniven0_*.deb /packages/focal/oss/libniven0.deb
-  artifacts:
-    paths:
-      - packages/*.deb
+      - build/libniven*.deb
 
 deploy-packages:
-  image: emergent:deploy
   stage: deploy
   rules:
     - if: $CI_COMMIT_TAG
-  dependencies:
-    - package-bionic
-  before_script:
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
+  needs: [ package-all ]
   script:
-    - cd packages
-    - scp *.deb gitlab@downloads.emergent-design.co.uk:/srv/downloads/libniven/
+    - scp build/*.deb $DEPLOY_DOWNLOADS/libniven/
 
 deploy-phi:
-  image: emergent:deploy
   stage: deploy
   rules:
     - if: $CI_COMMIT_TAG
-  needs: [ package-bionic, package-focal ]
-  before_script:
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PHI_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - echo "$SSH_PHI_KNOWN" > ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
+  needs: [ package-all ]
   script:
-    - phi-deploy /packages/bionic/oss/libniven0.deb bionic oss
-    - phi-deploy /packages/focal/oss/libniven0.deb focal oss
+    - phi-deploy build/libniven0*~bionic_amd64.deb bionic oss
+    - phi-deploy build/libniven0*~focal_amd64.deb focal oss
