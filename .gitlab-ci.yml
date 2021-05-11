@@ -26,5 +26,7 @@ deploy-packages:
   needs: [ package-all ]
   script:
     - scp build/*.deb $DEPLOY_DOWNLOADS/libniven/
-    - phi-deploy build/libniven0*~bionic_amd64.deb bionic oss
-    - phi-deploy build/libniven0*~focal_amd64.deb focal oss
+    - for REPO in bionic focal; do
+        phi-deploy build/libniven0*~$REPO_amd64.deb $REPO oss;
+        phi-deploy build/libniven-dev*~$REPO_amd64.deb $REPO oss;
+      done
