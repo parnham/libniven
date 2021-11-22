@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+include /usr/share/dpkg/pkg-info.mk
+export DEB_VERSION
+export DEB_HOST_MULTIARCH
+
+clean:
+	dh_clean
+
+build:
+	@# Do nothing
+
+binary:
+	dh_prep
+	dh_install
+	sed -i "s/^Version.*/Version: $(DEB_VERSION)/" debian/libniven-dev/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/niven.pc
+	dh_link --package=libniven0 /usr/lib/$(DEB_HOST_MULTIARCH)/libniven.so.$(DEB_VERSION) /usr/lib/$(DEB_HOST_MULTIARCH)/libniven.so.0
+	dh_link --package=libniven-dev /usr/lib/$(DEB_HOST_MULTIARCH)/libniven.so.0 /usr/lib/$(DEB_HOST_MULTIARCH)/libniven.so
+	dh_installdocs
+	dh_installchangelogs
+	dh_compress
+	dh_fixperms
+	dh_strip
+	dh_makeshlibs
+	dh_shlibdeps
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb

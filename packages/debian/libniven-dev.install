@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+
+../include/niven usr/include/
+niven.pc usr/lib/${DEB_HOST_MULTIARCH}/pkgconfig/

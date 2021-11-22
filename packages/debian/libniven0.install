@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+
+../lib/libniven.so => usr/lib/${DEB_HOST_MULTIARCH}/libniven.so.${DEB_VERSION}

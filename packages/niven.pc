@@ -4,7 +4,7 @@ libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: libniven
-Description: C++14 REST library
+Description: C++17 REST library
 Version: 0.0.8
 Requires:
 Libs: -L${libdir} -lniven

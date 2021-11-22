@@ -1,0 +1,22 @@
+Source: libniven0
+Section: libs
+Priority: optional
+Build-Depends: build-essential, debhelper (>= 9), dh-exec
+Maintainer: Dan Parnham <dan@emergent-design.co.uk>
+Homepage: https://github.com/parnham/libniven
+
+Package: libniven0
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: C++17 REST services made easy
+ Allows simple construction of self-hosted REST
+ services using lambdas and fluent configuration.
+
+Package: libniven-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends}, libniven0 (= ${binary:Version}), libmicrohttpd-dev
+Description: C++17 REST services made easy
+ Allows simple construction of self-hosted REST
+ services using lambdas and fluent configuration.
