@@ -1,3 +1,5 @@
+VERSION 0.6
+
 bionic:
 	FROM ubuntu:18.04
 	ENV DEBIAN_FRONTEND noninteractive
@@ -42,9 +44,8 @@ package:
 	RUN cd packages && dpkg-buildpackage -b -uc -us
 	SAVE ARTIFACT packages/libniven-dev_*.deb libniven-dev.deb
 	SAVE ARTIFACT packages/libniven0_*.deb libniven0.deb
-	# SAVE ARTIFACT packages/libniven*.deb AS LOCAL build/
 	SAVE ARTIFACT libniven*.deb AS LOCAL build/$DISTRIBUTION/
 
 all:
-	BUILD --build-arg DISTRIBUTION=bionic --platform=linux/amd64 --platform=linux/arm64 +package
-	BUILD --build-arg DISTRIBUTION=focal --platform=linux/amd64 --platform=linux/arm64 +package
+	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=bionic
+	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=focal
