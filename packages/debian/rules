@@ -2,6 +2,7 @@
 include /usr/share/dpkg/pkg-info.mk
 export DEB_VERSION
 export DEB_HOST_MULTIARCH
+DISTRIBUTION := $(shell sed -n "s/^VERSION_CODENAME=//p" /etc/os-release)
 
 clean:
 	dh_clean
@@ -23,6 +24,6 @@ binary:
 	dh_makeshlibs
 	dh_shlibdeps
 	dh_installdeb
-	dh_gencontrol
+	dh_gencontrol -- -v"$(DEB_VERSION)~$(DISTRIBUTION)"
 	dh_md5sums
 	dh_builddeb

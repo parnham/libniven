@@ -17,7 +17,7 @@ package-all:
     - earthly +all
   artifacts:
     paths:
-      - build/*/**.deb
+      - build/**.deb
 
 deploy-packages:
   stage: deploy
@@ -27,7 +27,7 @@ deploy-packages:
   script:
     - for REPO in bionic focal; do
         for ARCH in amd64 arm64; do
-          phi-deploy build/$REPO/libniven0*_${ARCH}.deb $REPO oss;
-          phi-deploy build/$REPO/libniven-dev*_${ARCH}.deb $REPO oss;
+          phi-deploy build/libniven0*~${REPO}_${ARCH}.deb $REPO oss;
+          phi-deploy build/libniven-dev*~${REPO}_${ARCH}.deb $REPO oss;
         done
       done
