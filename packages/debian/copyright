@@ -1,8 +1,8 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Source: https://premake.github.io/
+Source: https://github.com/parnham/libniven
 
 Files: *
-Copyright: 2015-2021 Daniel Parnham <dan@emergent-design.co.uk>
+Copyright: 2015-2022 Daniel Parnham <dan@emergent-design.co.uk>
 License: Expat
  Permission is hereby granted, free of charge, to any person obtaining
  a copy of this software and associated documentation files (the

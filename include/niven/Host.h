@@ -41,7 +41,7 @@ namespace niven
 
 		private:
 
-			static int OnAccess(void *cls, MHD_Connection *connection, const char *url, const char *method, const char *version, const char *upload_data, size_t *upload_data_size, void **ptr);
+			static auto OnAccess(void *cls, MHD_Connection *connection, const char *url, const char *method, const char *version, const char *upload_data, size_t *upload_data_size, void **ptr);
 
 			std::map<std::string, std::unique_ptr<Module>> modules;
 			MHD_Daemon *daemon = nullptr;

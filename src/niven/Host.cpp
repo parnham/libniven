@@ -3,6 +3,10 @@
 using namespace std;
 using namespace emg;
 
+#if MHD_VERSION < 0x00097002
+	#define MHD_Result int
+#endif
+
 
 namespace niven
 {
@@ -16,7 +20,7 @@ namespace niven
 	}
 
 
-	int NivenHost::OnAccess(void *cls, MHD_Connection *connection, const char *url, const char *method, const char *version, const char *upload_data, size_t *upload_data_size, void **ptr)
+	auto NivenHost::OnAccess(void *cls, MHD_Connection *connection, const char *url, const char *method, const char *version, const char *upload_data, size_t *upload_data_size, void **ptr)
 	{
 		if (!*ptr)
 		{
@@ -50,11 +54,13 @@ namespace niven
 		}
 
 		// Send the response to the client and clean up
-		int result	= response.Send(connection);
+		auto result	= (MHD_Result)response.Send(connection);
 		*ptr		= nullptr;
 
 		delete context;
 		return result;
+
+
 	}
 
 

@@ -47,7 +47,7 @@ namespace niven
 
 		private:
 
-			static int Populate(void *cls, MHD_ValueKind kind, const char *key, const char *value);
+			static auto Populate(void *cls, MHD_ValueKind kind, const char *key, const char *value);
 
 			MHD_Connection *connection = nullptr;
 	};

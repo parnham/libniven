@@ -13,7 +13,7 @@ namespace niven
 	}
 
 
-	int Request::Populate(void *cls, MHD_ValueKind kind, const char *key, const char *value)
+	auto Request::Populate(void *cls, MHD_ValueKind kind, const char *key, const char *value)
 	{
 		static_cast<map<string, string> *>(cls)->emplace(key, value);
 		return MHD_YES;

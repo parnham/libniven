@@ -25,11 +25,6 @@ deploy-packages:
     - if: $CI_COMMIT_TAG
   needs: [ package-all ]
   script:
-    # - scp build/*.deb $DEPLOY_DOWNLOADS/libniven/
-    # - for REPO in bionic focal; do
-    #     phi-deploy build/libniven0*~${REPO}_amd64.deb $REPO oss;
-    #     phi-deploy build/libniven-dev*~${REPO}_amd64.deb $REPO oss;
-    #   done
     - for REPO in bionic focal; do
         for ARCH in amd64 arm64; do
           phi-deploy build/$REPO/libniven0*_${ARCH}.deb $REPO oss;
