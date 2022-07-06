@@ -17,7 +17,7 @@ package-all:
     - earthly +all
   artifacts:
     paths:
-      - build/**.deb
+      - build/*/**.deb
 
 deploy-packages:
   stage: deploy
