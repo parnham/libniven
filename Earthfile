@@ -35,7 +35,7 @@ deps:
 
 build:
 	FROM +deps
-	COPY --dir include packages src premake5.lua strip .
+	COPY --dir include packages src premake5.lua .
 	RUN premake5 gmake && make -j$(nproc) libniven
 
 package:
@@ -43,9 +43,9 @@ package:
 	ARG DISTRIBUTION=bionic
 
 	RUN cd packages && dpkg-buildpackage -b -uc -us
-	SAVE ARTIFACT packages/libniven-dev_*.deb libniven-dev.deb
-	SAVE ARTIFACT packages/libniven0_*.deb libniven0.deb
-	SAVE ARTIFACT libniven*.deb AS LOCAL build/
+	# SAVE ARTIFACT libniven-dev_*.deb libniven-dev.deb
+	# SAVE ARTIFACT libniven0_*.deb libniven0.deb
+	SAVE ARTIFACT libniven*.*deb AS LOCAL build/
 
 all:
 	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=bionic

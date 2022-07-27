@@ -20,8 +20,8 @@ solution "niven"
 		links				{ "microhttpd", "gcrypt", "stdc++fs" }
 		linkoptions 		{ "-Wl,-soname,libniven.so.0" }
 		files				{ "include/niven/**h", "src/niven/**.cpp" }
-		configuration "linux"
-			postbuildcommands	"./strip lib/libniven.so"
+		-- configuration "linux"
+		-- 	postbuildcommands	"./strip lib/libniven.so"
 
 	project "test"
 		kind				"ConsoleApp"
