@@ -1,3 +1,9 @@
+libniven0 (0.0.17) unstable; urgency=medium
+
+  * Packaging updates
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Wed, 23 Nov 2022 17:53:32 +0000
+
 libniven0 (0.0.16) unstable; urgency=medium
 
   * Tidy up and packaging fixes

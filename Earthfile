@@ -25,8 +25,8 @@ image:
 
 
 deps:
-	ARG EMERGENT=0.0.39
-	ARG ENTITY=1.1.10
+	ARG EMERGENT=0.0.43
+	ARG ENTITY=1.1.13
 
 	FROM +image
 	RUN curl -Ls -o libemergent-dev.deb https://github.com/emergent-design/libemergent/releases/download/v$EMERGENT/libemergent-dev_${EMERGENT}_all.deb \
@@ -51,3 +51,10 @@ all:
 	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=bionic
 	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=focal
 	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=jammy
+
+
+check:
+	BUILD +build
+
+niven-all:
+	BUILD +all

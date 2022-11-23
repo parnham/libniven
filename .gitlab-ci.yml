@@ -1,33 +1,15 @@
-stages:
-  - build
-  - deploy
+include:
+  - project: 'core/common'
+    file: '/templates/ci.yml'
 
-build-check:
-  stage: build
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-  script:
-    - earthly +build
+variables:
+  COMPONENT: oss
 
-package-all:
-  stage: build
-  rules:
-    - if: $CI_COMMIT_TAG
-  script:
-    - earthly +all
-  artifacts:
-    paths:
-      - build/**.deb
+package-niven:
+  extends: [ .build-packages ]
+  variables: { MODULE: niven, MATCH: /^v.*$/ }
 
-deploy-packages:
-  stage: deploy
-  rules:
-    - if: $CI_COMMIT_TAG
-  needs: [ package-all ]
-  script:
-    - for REPO in bionic focal jammy; do
-        for ARCH in amd64 arm64; do
-          phi-deploy build/libniven0*~${REPO}_${ARCH}.deb $REPO oss;
-          phi-deploy build/libniven-dev*~${REPO}_${ARCH}.deb $REPO oss;
-        done
-      done
+deploy-niven:
+  needs: [ package-niven ]
+  extends: [ .deploy-packages ]
+  variables: { MODULE: niven, MATCH: /^v.*$/  }
