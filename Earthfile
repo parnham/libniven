@@ -45,7 +45,7 @@ package:
 	RUN cd packages && dpkg-buildpackage -b -uc -us
 	# SAVE ARTIFACT libniven-dev_*.deb libniven-dev.deb
 	# SAVE ARTIFACT libniven0_*.deb libniven0.deb
-	SAVE ARTIFACT libniven*.*deb AS LOCAL build/
+	SAVE ARTIFACT libniven*.*deb AS LOCAL build/$DISTRIBUTION/
 
 all:
 	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=bionic
