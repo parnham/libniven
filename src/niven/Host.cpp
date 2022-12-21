@@ -20,7 +20,7 @@ namespace niven
 	}
 
 
-	auto NivenHost::OnAccess(void *cls, MHD_Connection *connection, const char *url, const char *method, const char *version, const char *upload_data, size_t *upload_data_size, void **ptr)
+	auto NivenHost::OnAccess(void *cls, MHD_Connection *connection, const char *url, const char *method, const char *, const char *upload_data, size_t *upload_data_size, void **ptr)
 	{
 		if (!*ptr)
 		{
@@ -69,7 +69,7 @@ namespace niven
 		if (!this->daemon)
 		{
 			// Logging wrapper function
-			auto log = [](void *p, const char *s, va_list a) {
+			auto log = [](void *, const char *s, va_list a) {
 				char buffer[1024];
 				vsnprintf(buffer, 1024, s, a);
 				Log::Error(buffer);

@@ -14,7 +14,7 @@ namespace niven
 			RootNode() : TrieNode("", 0) {}
 
 
-			bool IsMatch(const std::string &segment)
+			bool IsMatch(const std::string &)
 			{
 				return true;
 			}

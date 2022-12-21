@@ -31,7 +31,7 @@ namespace niven
 			// Override this to include or replace dependencies during host
 			// instantiation. Useful for modules that are dynamically loaded
 			// via a shared library since they will not have access to the host.
-			virtual void AddDependencies(Dependencies &container) {}
+			virtual void AddDependencies(Dependencies &) {}
 
 
 		protected:

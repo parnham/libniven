@@ -91,7 +91,7 @@ namespace niven
 			: status(status), data((char *)data.data(), data.size()) {}
 
 		// A null response results in an undefined status code allowing other actions to be performed.
-		Response(std::nullptr_t null) : status(Http::None), headers() {}
+		Response(std::nullptr_t) : status(Http::None), headers() {}
 
 		// Fluent helper function to add a response header.
 		Response &WithHeader(const std::string &key, const std::string &value);

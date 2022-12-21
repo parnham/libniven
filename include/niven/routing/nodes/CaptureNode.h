@@ -19,7 +19,7 @@ namespace niven
 			}
 
 
-			bool IsMatch(const std::string &segment)
+			bool IsMatch(const std::string &)
 			{
 				return true;
 			}

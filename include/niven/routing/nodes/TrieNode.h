@@ -25,7 +25,7 @@ namespace niven
 			virtual bool IsMatch(const std::string &segment) = 0;
 
 			// Where appropriate, retrieve the captures for this node type.
-			virtual const ent::tree GetCaptures(const ent::tree &captures, const std::string &segment) { return captures; }
+			virtual const ent::tree GetCaptures(const ent::tree &captures, const std::string &) { return captures; }
 
 		protected:
 

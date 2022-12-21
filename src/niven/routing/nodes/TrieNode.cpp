@@ -17,7 +17,7 @@ namespace niven
 		// If this is a leaf node for the route then generate a score
 		// and store the route. Otherwise find/create the correct type
 		// of child node and pass the route on down.
-		if (index >= route->segments.size())
+		if (index >= (int)route->segments.size())
 		{
 			route->score = score + this->score;
 
@@ -42,7 +42,7 @@ namespace niven
 	{
 		// If this is a leaf node then add its route to the results otherwise
 		// retrieve matches for any child nodes.
-		if (index >= segments.size())
+		if (index >= (int)segments.size())
 		{
 			if (this->route)
 			{

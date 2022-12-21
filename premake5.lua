@@ -6,7 +6,7 @@ solution "niven"
 	includedirs		"include"
 	libdirs			"lib"
 	toolset			"clang"
-	buildoptions	{ "-Wall", "-Wno-sign-compare", "-std=c++17", "-O3", "-fPIC", "-D_FORTIFY_SOURCE=2" }
+	buildoptions	{ "-Wall", "-Wextra", "-Wpedantic", "-std=c++17", "-O3", "-fPIC", "-D_FORTIFY_SOURCE=2" }
 	excludes		{ "**.bak", "**~" }
 
 	configuration "linux"

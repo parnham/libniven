@@ -30,7 +30,7 @@ namespace niven
 		// for them (since they may have a higher score).
 		if (this->children.size())
 		{
-			for (; index < segments.size(); index++)
+			for (; index < (int)segments.size(); index++)
 			{
 				for (auto &c : this->children)
 				{
@@ -46,7 +46,7 @@ namespace niven
 	}
 
 
-	bool GreedyNode::IsMatch(const std::string &segment)
+	bool GreedyNode::IsMatch(const std::string &)
 	{
 		return true;
 	}
