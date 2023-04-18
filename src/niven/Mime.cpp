@@ -6,6 +6,7 @@ namespace niven
 		// JS
 		{ ".json",	"application/json" },
 		{ ".js",	"application/javascript" },
+		{ ".map",	"application/json" },
 
 		// Images
 		{ ".gif",	"image/gif" },

@@ -2,12 +2,15 @@
 
 #include <entity/entity.hpp>
 #include <entity/json.hpp>
+#include <emergent/Dependencies.hpp>
 #include <niven/Request.h>
-#include <niven/Dependencies.h>
+// #include <niven/Dependencies.h>
 // #include <experimental/any>
 
 namespace niven
 {
+	using emergent::Dependencies;
+
 	// The context is passed to a matched route action. It contains the request information,
 	// any captures from the URL, access to dependency resolution and binding helpers.
 	class Context

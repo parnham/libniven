@@ -1,6 +1,7 @@
 #pragma once
 
 #include <emergent/logger/Logger.hpp>
+#include <emergent/Dependencies.hpp>
 #include <niven/Configuration.h>
 #include <niven/Module.h>
 #include <niven/Http.h>
@@ -16,7 +17,7 @@ namespace niven
 	// The host is responsible for creating the modules, configuring
 	// the daemon, acting as a dependency container and handling
 	// requests.
-	class NivenHost : public Dependencies, public Configuration
+	class NivenHost : public emg::Dependencies, public Configuration
 	{
 		public:
 
