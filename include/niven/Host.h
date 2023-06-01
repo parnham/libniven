@@ -23,6 +23,8 @@ namespace niven
 
 			NivenHost();
 
+			~NivenHost();
+
 			// Creates the daemon (if it has not been already). The daemon uses its own
 			// thread pool and so this function returns immediately. Will return true
 			// if the daemon was created successfully.

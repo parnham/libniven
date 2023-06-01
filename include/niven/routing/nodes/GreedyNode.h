@@ -14,9 +14,9 @@ namespace niven
 
 			GreedyNode(std::string segment);
 
-			virtual void GetMatches(std::vector<RouteMatch> &results, const std::vector<std::string> &segments, int index = 0, const ent::tree &captures = {});
+			void GetMatches(std::vector<RouteMatch> &results, const std::vector<std::string> &segments, int index = 0, const ent::tree &captures = {}) override;
 
-			virtual bool IsMatch(const std::string &segment);
+			bool IsMatch(const std::string &segment) override;
 
 
 		private:

@@ -19,13 +19,13 @@ namespace niven
 			}
 
 
-			bool IsMatch(const std::string &)
+			bool IsMatch(const std::string &) override
 			{
 				return true;
 			}
 
 
-			const ent::tree GetCaptures(const ent::tree &captures, const std::string &segment)
+			const ent::tree GetCaptures(const ent::tree &captures, const std::string &segment) override
 			{
 				// The capture is simply the segment.
 				return ent::tree(captures).set(this->name, segment);

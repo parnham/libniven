@@ -13,7 +13,7 @@ namespace niven
 			LiteralNode(std::string segment) : TrieNode(segment, 10000) {}
 
 
-			bool IsMatch(const std::string &segment)
+			bool IsMatch(const std::string &segment) override
 			{
 				return segment == this->routeSegment;
 			}
