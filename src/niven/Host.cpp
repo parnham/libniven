@@ -86,10 +86,10 @@ namespace niven
 				this->daemon = MHD_start_daemon(
 					MHD_USE_SELECT_INTERNALLY | MHD_USE_EPOLL_LINUX_ONLY | MHD_USE_SSL | MHD_USE_DEBUG | MHD_USE_DUAL_STACK,
 					this->port, nullptr, nullptr, &NivenHost::OnAccess, this,
+					MHD_OPTION_EXTERNAL_LOGGER, 	(MHD_LogCallback)log, nullptr,
 					MHD_OPTION_THREAD_POOL_SIZE,	this->threads,
 					MHD_OPTION_HTTPS_MEM_KEY,		this->sslKey.c_str(),
 					MHD_OPTION_HTTPS_MEM_CERT,		this->sslCertificate.c_str(),
-					MHD_OPTION_EXTERNAL_LOGGER, 	(MHD_LogCallback)log, nullptr,
 					MHD_OPTION_END
 				);
 			}
@@ -98,8 +98,8 @@ namespace niven
 				this->daemon = MHD_start_daemon(
 					MHD_USE_SELECT_INTERNALLY | MHD_USE_EPOLL_LINUX_ONLY | MHD_USE_DEBUG | MHD_USE_DUAL_STACK,
 					this->port, nullptr, nullptr, &NivenHost::OnAccess, this,
-					MHD_OPTION_THREAD_POOL_SIZE,	this->threads,
 					MHD_OPTION_EXTERNAL_LOGGER,		(MHD_LogCallback)log, nullptr,
+					MHD_OPTION_THREAD_POOL_SIZE,	this->threads,
 					MHD_OPTION_END
 				);
 			}
