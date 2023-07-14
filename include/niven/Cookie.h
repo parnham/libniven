@@ -27,10 +27,8 @@ namespace niven
 		// Build the cookie string.
 		std::string Build();
 
-		// Convert the expiry timestamp to the standard cookie format.
-		std::string CookieTime();
-
 		// Enable the Secure flag.
 		Cookie &Secure();
 	};
 }
+

@@ -1,7 +1,6 @@
 #include "niven/Response.h"
 #include "niven/Mime.h"
-#include <emergent/Emergent.hpp>
-
+#include <emergent/Io.hpp>
 
 using namespace std;
 using namespace ent;
@@ -37,7 +36,14 @@ namespace niven
 		if (fs::exists(path) && Mime::ByExtension.count(extension))
 		{
 			this->headers["Content-Type"]	= Mime::ByExtension.at(extension);
-			this->data 						= emergent::String::load(path);
+			this->headers["Last-Modified"]	= HttpTime::Format(
+				emergent::time::to_time_t(
+					fs::last_write_time(path)
+				)
+			);
+			// this->headers["Cache-Control"]	= "no-cache";
+			// this->data 						= emergent::String::load(path);
+			emg::Io::Load(this->data, path);
 		}
 		else this->status = Http::NotFound;
 	}

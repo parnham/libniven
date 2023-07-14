@@ -9,6 +9,9 @@ focal:
 jammy:
 	FROM ubuntu:22.04
 
+# rolling:
+# 	FROM debian:testing
+
 image:
 	ARG TARGETARCH
 	ARG DISTRIBUTION=bionic

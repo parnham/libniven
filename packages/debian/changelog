@@ -1,3 +1,11 @@
+libniven0 (0.0.18) unstable; urgency=medium
+
+  * Added a helper function for generating an HTTP header compatible time
+  * Switch Cookie to use the new helper
+  * Added "Last-Modified" header when returning a file in a Response
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Fri, 14 Jul 2023 16:00:15 +0100
+
 libniven0 (0.0.17) unstable; urgency=medium
 
   * Packaging updates

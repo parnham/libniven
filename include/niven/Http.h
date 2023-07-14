@@ -1,4 +1,6 @@
 #pragma once
+// #include <array>
+#include <emergent/String.hpp>
 
 
 namespace niven
@@ -67,4 +69,28 @@ namespace niven
 		BandwidthLimitExceeded			= 509,
 		NotExtended						= 510
 	};
+
+
+	struct HttpTime
+	{
+		static constexpr const char *DAYS[]		= { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+		static constexpr const char *MONTHS[]	= { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+		// Convert the timestamp to the standard HTTP time format.
+		static std::string Format(const time_t time) //, const bool cookie = false)
+		{
+			tm t;
+			gmtime_r(&time, &t);
+
+				// Convert the expiry timestamp to the standard HTTP header format.
+			return emergent::String::format(
+				// cookie ? "%s, %02d-%s-%04d %02d:%02d:%02d GMT" : "%s, %02d %s %04d %02d:%02d:%02d GMT",
+				"%s, %02d %s %04d %02d:%02d:%02d GMT",
+				DAYS[t.tm_wday], t.tm_mday, MONTHS[t.tm_mon], 1900+t.tm_year,
+				t.tm_hour, t.tm_min, t.tm_sec
+			);
+		}
+	};
 }
+
+
