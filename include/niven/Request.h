@@ -42,12 +42,16 @@ namespace niven
 			std::map<std::string, std::string> Cookies();
 
 
+			void MultipartData();
+
+
 			Request() {}
 			Request(const std::string url, const std::string method, MHD_Connection *connection);
 
 		private:
 
 			static auto Populate(void *cls, MHD_ValueKind kind, const char *key, const char *value);
+			static auto IterateMultipart(void *cls, MHD_ValueKind, const char *key, const char *filename, const char *content_type, const char *transfer_encoding, const char *data, uint64_t off, size_t size);
 
 			MHD_Connection *connection = nullptr;
 	};
