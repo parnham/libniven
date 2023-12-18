@@ -2,9 +2,7 @@
 #include "niven/Mime.h"
 #include <emergent/Io.hpp>
 
-using namespace std;
-using namespace ent;
-
+#include <iostream>
 
 namespace niven
 {
@@ -15,17 +13,17 @@ namespace niven
 	// }
 
 
-	Response::Response(const tree &data)
+	Response::Response(const ent::tree &data)
 	{
 		this->headers["Content-Type"]	= "application/json; charset=utf-8";
-		this->data						= encode<json>(data);
+		this->data						= ent::encode<ent::json>(data);
 	}
 
 
-	Response::Response(const vector<tree> &data)
+	Response::Response(const std::vector<ent::tree> &data)
 	{
 		this->headers["Content-Type"]	= "application/json; charset=utf-8";
-		this->data						= encode<json>(tree { data });
+		this->data						= ent::encode<ent::json>(ent::tree { data });
 	}
 
 
@@ -41,15 +39,15 @@ namespace niven
 					fs::last_write_time(path)
 				)
 			);
-			// this->headers["Cache-Control"]	= "no-cache";
-			// this->data 						= emergent::String::load(path);
-			emg::Io::Load(this->data, path);
+
+			// emg::Io::Load(this->data, path);
+			this->path = path;
 		}
 		else this->status = Http::NotFound;
 	}
 
 
-	Response &Response::WithHeader(const string &key, const string &value)
+	Response &Response::WithHeader(const std::string &key, const std::string &value)
 	{
 		this->headers[key] = value;
 		return *this;
@@ -65,6 +63,34 @@ namespace niven
 
 	int Response::Send(MHD_Connection *connection)
 	{
+		if (!this->path.empty())
+		{
+			if (auto file = fopen(this->path.c_str(), "rb"))
+			{
+				auto response = MHD_create_response_from_callback(
+					fs::file_size(this->path),
+					32 * 1024,
+					[](void *file, uint64_t pos, char *buffer, size_t max) {
+						fseek((FILE *)file, pos, SEEK_SET);
+						return (ssize_t)fread(buffer, 1, max, (FILE *)file);
+					},
+					file,
+					[](void *file) { fclose((FILE *)file); }
+				);
+
+				MHD_add_response_header(response, "Server", "niven/0.1");
+				MHD_add_response_header(response, "Keep-Alive", "timeout=60");
+
+				int result = MHD_queue_response(connection, (int)this->status, response);
+
+				MHD_destroy_response(response);
+
+				return result;
+			}
+
+			this->status = Http::NotFound;
+		}
+
 		// auto response = MHD_create_response_from_buffer(this->data.size(), (void *)this->data.data(), MHD_RESPMEM_PERSISTENT);
 		auto response = MHD_create_response_from_buffer(this->data.size(), (void *)this->data.data(), MHD_RESPMEM_MUST_COPY);
 
@@ -73,8 +99,6 @@ namespace niven
 
 		MHD_add_response_header(response, "Server", "niven/0.1");
 		MHD_add_response_header(response, "Keep-Alive", "timeout=60");
-
-		//MHD_set_connection_value(struct MHD_Connection *connection, enum MHD_ValueKind kind, const char *key, const char *value)
 
 		int result = MHD_queue_response(connection, (int)this->status, response);
 

@@ -9,8 +9,8 @@ class FilesModule : public Module
 		FilesModule() : Module("/files")
 		{
 			// Return a file by name relative to the path of execution.
-			// By returning a Path structure as the response, niven will
-			// automatically attempt to load the file in question.
+			// By returning a path as the response, niven will automatically
+			// attempt to load the file in question.
 			Get["/{name*}"] = [](auto &c) {
 				return fs::path(c["name"]);
 			};

@@ -33,6 +33,7 @@ namespace niven
 		std::map<std::string, std::string> headers	= {{ "Content-Type", "text/plain" }};
 		std::vector<Cookie> cookies;
 		std::string data;
+		fs::path path;
 
 		// An empty response will return the default HTTP status with no data.
 		Response() {}
