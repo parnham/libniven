@@ -1,3 +1,12 @@
+libniven0 (0.0.19) unstable; urgency=medium
+
+  * Added multipart form data support to Request to allow file uploads
+  * Response by path now streams the file directly instead of requiring
+    it to be fully loaded into memory first
+  * Additional mimetypes
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Wed, 03 Jan 2024 11:06:11 +0000
+
 libniven0 (0.0.18) unstable; urgency=medium
 
   * Added a helper function for generating an HTTP header compatible time
