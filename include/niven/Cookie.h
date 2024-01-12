@@ -25,7 +25,7 @@ namespace niven
 		Cookie(std::string name, std::string value, const DateTime &expires) : name(name), value(value), expires(expires) {}
 
 		// Build the cookie string.
-		std::string Build();
+		std::string Build() const;
 
 		// Enable the Secure flag.
 		Cookie &Secure();

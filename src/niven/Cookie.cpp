@@ -9,7 +9,7 @@ using namespace emergent;
 namespace niven
 {
 	// Build the cookie string.
-	string Cookie::Build()
+	string Cookie::Build() const
 	{
 		auto result = String::format("%s=%s; Path=%s", this->name, this->value, this->path);
 

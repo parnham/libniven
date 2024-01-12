@@ -5,7 +5,6 @@
 #include <niven/Configuration.h>
 #include <niven/Module.h>
 #include <niven/Http.h>
-#include <niven/Dependencies.h>
 #include <niven/Pipeline.h>
 #include <niven/routing/Router.h>
 #include <microhttpd.h>

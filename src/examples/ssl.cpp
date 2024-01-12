@@ -6,12 +6,7 @@
 // #include <bits/signum.h>
 #include <condition_variable>
 
-#include "examples/Simple.hpp"
-
-
-using namespace std;
-using namespace emg;
-using namespace niven;
+// #include "examples/Simple.hpp"
 
 
 auto KEY = R"ssl(
@@ -55,20 +50,20 @@ auto CERTIFICATE = R"ssl(
 
 
 bool run = true;
-condition_variable condition;
+std::condition_variable condition;
 
 int main(int argc, char **argv)
 {
 	// Enable logging to stdout
-	Log::Initialise({ make_unique<logger::Console>() });
-	Log::Verbosity("info");
+	emg::Log::Initialise({ std::make_unique<emg::logger::Console>() });
+	emg::Log::Verbosity("info");
 
 	// Catch the interrupt/quit signals and handle appropriately
 	signal(SIGINT,	[](int) { run = false; condition.notify_one(); });
 	signal(SIGQUIT,	[](int) { run = false; condition.notify_one(); });
 
 
-	NivenHost host;
+	niven::NivenHost host;
 
 	// Listen on port 8090 and enable SSL using an embedded key and certificate.
 	host.Listen(8090).EnableSSL(KEY, CERTIFICATE);
@@ -82,15 +77,22 @@ int main(int argc, char **argv)
 	// variable to wait for an interrupt or quit signal from the user.
 	if (host.Run())
 	{
-		cout << "Listening on port 8090" << endl;
+		std::cout << "Listening on port 8090\n";
 
-		mutex m;
-		unique_lock<mutex> lock(m);
-		while (run) condition.wait(lock);
+		std::mutex m;
+		std::unique_lock lock(m);
+
+		while (run)
+		{
+			condition.wait(lock);
+		}
 
 		host.Stop();
 	}
-	else cout << "Failed to initialise host" << endl;
+	else
+	{
+		std::cout << "Failed to initialise host\n";
+	}
 
 	return 0;
 }

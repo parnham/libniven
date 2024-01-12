@@ -17,10 +17,10 @@ solution "examples"
 		kind		"ConsoleApp"
 		targetdir	"bin"
 		links		{ "niven", "hiredis", "pthread", "stdc++fs"  }
-		files		{ "example.cpp" }
+		files		{ "example.cpp", "modules/**.cpp" }
 
 	project "ssl"
 		kind		"ConsoleApp"
 		targetdir	"bin"
 		links		{ "niven", "pthread"  }
-		files		{ "ssl.cpp" }
+		files		{ "ssl.cpp", "modules/Simple.cpp" }
