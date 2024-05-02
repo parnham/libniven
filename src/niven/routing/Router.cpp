@@ -13,7 +13,7 @@ namespace niven
 		// Build the trie
 		for (auto &m : modules)
 		{
-			Log::Info("Registering routes for module %s", m.first);
+			Log::Info("\u2022 registering routes for module %s", m.first);
 
 			for (auto &r : m.second->routes)
 			{

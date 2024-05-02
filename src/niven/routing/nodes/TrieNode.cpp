@@ -24,9 +24,12 @@ namespace niven
 			if (!this->route || route->score > this->route->score)
 			{
 				this->route = route;
-				Log::Info("Added %s: %s at %d with a score of %d", route->method, route->path, index, route->score);
+				Log::Info("  - added %s %s at %d (score = %d)", route->method, route->path, index, route->score);
 			}
-			else Log::Info("Ignored %s: %s because a route already exists at this node", route->method, route->path);
+			else
+			{
+				Log::Info("  - ignored %s %s because a route already exists at this node", route->method, route->path);
+			}
 		}
 		else
 		{
