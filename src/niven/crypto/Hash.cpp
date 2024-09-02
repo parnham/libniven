@@ -4,7 +4,7 @@
 #include <iomanip>
 // #include <emergent/logger/Logger.hpp>
 #include <emergent/Uuid.hpp>
-#include <entity/utilities.hpp>
+#include <entity/utilities/base64.hpp>
 
 using namespace emergent;
 using namespace ent;
