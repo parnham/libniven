@@ -28,8 +28,8 @@ image:
 
 
 deps:
-	ARG EMERGENT=0.1.5
-	ARG ENTITY=1.1.14
+	ARG EMERGENT=0.1.7
+	ARG ENTITY=1.2.0
 
 	FROM +image
 	RUN curl -Ls -o libemergent-dev.deb https://github.com/emergent-design/libemergent/releases/download/v$EMERGENT/libemergent-dev_${EMERGENT}_all.deb \
