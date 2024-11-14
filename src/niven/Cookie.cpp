@@ -17,6 +17,7 @@ namespace niven
 		if (this->domain.size())			result += "; Domain=" + this->domain;
 		if (this->secure)					result += "; Secure";
 		if (this->httpOnly)					result += "; HttpOnly";
+		if (!this->sameSite)				result += "; SameSite=None";
 
 		return result;
 	}
@@ -26,6 +27,14 @@ namespace niven
 	Cookie &Cookie::Secure()
 	{
 		this->secure = true;
+		return *this;
+	}
+
+	// Disable the SameSite option, this will set the Secure flag since it's required
+	Cookie &Cookie::DisableSameSite()
+	{
+		this->sameSite	= false;
+		this->secure	= true;
 		return *this;
 	}
 }

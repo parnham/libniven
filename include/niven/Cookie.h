@@ -18,6 +18,7 @@ namespace niven
 		std::string path	= "/";
 		bool httpOnly		= true;
 		bool secure			= false;
+		bool sameSite		= true;
 		DateTime expires;
 
 
@@ -29,6 +30,9 @@ namespace niven
 
 		// Enable the Secure flag.
 		Cookie &Secure();
+
+		// Disable the SameSite option, this will set the Secure flag since it's required
+		Cookie &DisableSameSite();
 	};
 }
 
