@@ -3,11 +3,14 @@ VERSION 0.6
 bionic:
 	FROM ubuntu:18.04
 
-focal:
-	FROM ubuntu:20.04
+# focal:
+# 	FROM ubuntu:20.04
 
 jammy:
 	FROM ubuntu:22.04
+
+noble:
+	FROM ubuntu:24.04
 
 # rolling:
 # 	FROM debian:testing
@@ -28,7 +31,7 @@ image:
 
 
 deps:
-	ARG EMERGENT=0.1.7
+	ARG EMERGENT=0.1.10
 	ARG ENTITY=1.2.1
 
 	FROM +image
@@ -52,8 +55,9 @@ package:
 
 all:
 	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=bionic
-	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=focal
+	# BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=focal
 	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=jammy
+	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=noble
 
 
 check:
