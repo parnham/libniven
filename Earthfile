@@ -53,6 +53,9 @@ package:
 	# SAVE ARTIFACT libniven0_*.deb libniven0.deb
 	SAVE ARTIFACT libniven*.*deb AS LOCAL build/$DISTRIBUTION/
 
+all-dists:
+	BUILD +package --DISTRIBUTION=bionic --DISTRIBUTION=jammy --DISTRIBUTION=noble
+
 all:
 	BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=bionic
 	# BUILD --platform=linux/amd64 --platform=linux/arm64 +package --DISTRIBUTION=focal
