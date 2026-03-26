@@ -1,22 +1,5 @@
-*.deb
-*.log
-*.make
-*.depend
-*.layout
-*.workspace
-*.sublime-workspace
-*.mk
-*.project
-*.session
-*.tags
 *~
-
-Makefile
-
-bin/
-obj/
 .directory
-.build-*/
 
-/lib/
-.env
+.cache/
+build/
