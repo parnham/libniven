@@ -11,9 +11,7 @@ trixie:
 
 
 image:
-	ARG TARGETARCH
 	ARG DISTRIBUTION=noble
-	# ARG PREMAKE=5.0.0-alpha16
 
 	FROM +$DISTRIBUTION
 	ENV DEBIAN_FRONTEND noninteractive
@@ -31,7 +29,6 @@ image:
 build:
 	FROM +image
 	COPY --dir include packages src CMakeLists.txt .
-	# RUN premake5 gmake && make -j$(nproc) libniven
 	RUN cmake -B build \
 		&& make -j8 -C build
 
