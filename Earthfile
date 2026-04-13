@@ -1,7 +1,7 @@
 VERSION 0.8
 
-# jammy:
-# 	FROM ubuntu:22.04
+jammy:
+	FROM ubuntu:22.04
 
 noble:
 	FROM ubuntu:24.04
@@ -33,8 +33,8 @@ build:
 		&& make -j8 -C build
 
 package:
-	FROM +build
 	ARG DISTRIBUTION=noble
+	FROM +build
 
 	RUN cd packages && dpkg-buildpackage -b -uc -us
 	SAVE ARTIFACT --keep-ts libniven*.*deb AS LOCAL build/$DISTRIBUTION/
