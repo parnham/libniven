@@ -1,3 +1,11 @@
+libniven0 (0.0.23) unstable; urgency=medium
+
+  * Added "jsonl" mimetype
+  * Updated cmake with install steps
+  * Only override the compiler if a toolchain has not been specified
+
+ -- Dan Parnham <dan@emergent-design.co.uk>  Mon, 28 Sep 2026 12:13:48 +0100
+
 libniven0 (0.0.22) unstable; urgency=medium
 
   * Add a cookie option to disable SameSite to potentially allow for iframe embedding
