@@ -13,8 +13,11 @@ set(CMAKE_BUILD_TYPE RelWithDebInfo)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 set(CMAKE_CXX_EXTENSIONS off)
-set(CMAKE_CXX_COMPILER clang++)
-set(CMAKE_CXX_COMPILER_LINKER clang++)
+
+if ("${CMAKE_TOOLCHAIN_FILE}" STREQUAL "")
+  set(CMAKE_CXX_COMPILER clang++)
+  set(CMAKE_CXX_COMPILER_LINKER clang++)
+endif()
 
 
 include_directories(include)
@@ -26,3 +29,6 @@ file(GLOB_RECURSE niven_sources src/niven/*.cpp)
 add_library(niven SHARED ${niven_sources})
 target_link_libraries(niven PRIVATE microhttpd gcrypt)
 set_target_properties(niven PROPERTIES SOVERSION 0)
+
+install(DIRECTORY include/niven TYPE INCLUDE)
+install(TARGETS niven)

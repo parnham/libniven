@@ -5,6 +5,7 @@ namespace niven
 	const std::map<std::string, std::string> Mime::ByExtension = {
 		// JS
 		{ ".json",	"application/json" },
+		{ ".jsonl", "application/jsonl" },
 		{ ".js",	"application/javascript" },
 		{ ".map",	"application/json" },
 
@@ -59,8 +60,3 @@ namespace niven
 		{ ".7z",	"application/x-7z-compressed" }
 	};
 }
-
-
-
-
-
